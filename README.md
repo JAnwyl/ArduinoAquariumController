@@ -11,7 +11,7 @@ LCD Sainsmart LCD2004
 1 DS18B20 (Not waterproof Seeedstudio Sensor Input, might cut cable to get at wires) Thermometer
 1 DHT11 Thermometer
 1 Piezo
-1 rtc Module
+1 DS1032 rtc Module
 1 Bluetooth Board
 1 IR Device
 1 IR Controller
