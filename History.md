@@ -6,6 +6,6 @@ Gonna save Stepper for later (Need large enough tank to warant feeder)
 Alpha
 0_1a No code really Crap really
 0_2a Some code (mostly commented out for thinking)
-0_3a
-0_4a
-0_5a Current-Just organizing layout
+0_3a Some code (Little less than before commented out for thinking)
+0_4a Some code (Little less than before commented out for thinking)
+0_5a Just organizing layout (Little less than before commented out for thinking)
