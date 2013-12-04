@@ -3,6 +3,8 @@ Gonna save Bluetooth till V2Beta
 Gonna save IR till V2Beta
 Gonna save Stepper for later (Need large enough tank to warant feeder)
 
+Added relay code to test relays for project
+
 Alpha
 0_1a No code really Crap really
 0_2a Some code (mostly commented out for thinking)
