@@ -1,9 +1,10 @@
 Gonna get all sensors working then combine. Once working will go beta and make sure its bug free.
 Gonna save Bluetooth till V2Beta
 Gonna save IR till V2Beta
-Gonna save Stepper for later (Need large enough tank to warant feeder)
+Gonna save Stepper/feeder for later (Need large enough tank to warant feeder)
 
 Added relay code to test relays for project
+Added Setting RTC Gonna try that code (Then code for reading RTC)
 Making this for relays http://www.instructables.com/id/Arduilay/?ALLSTEPS
 No arduino and ethernet for communication
 
