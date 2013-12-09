@@ -1,19 +1,17 @@
 /*
- Turns on and off a light emitting diode(LED) connected to digital  
- pin 13, when using a float switch attached to pin 2.
- This works like 75% of time.
+Jared Anwyl
+Turns on and off a light emitting diode(LED) connected to digital  
+pin 13, when using a float switch attached to pin 2.
+This works like 75% of time.
  
  
- The circuit:
- * LED attached from pin 13 to ground 
- * Float Switch attached to pin 2 from +5V
- * 10K resistor attached to pin 2 from ground
- 
- * Note: on most Arduinos there is already an LED on the board
- attached to pin 13.
- 
- This example code is in the public domain.
- */
+The circuit:
+* LED attached from pin 13 to ground 
+* Float Switch attached to pin 2 from +5V
+* 10K resistor attached to pin 2 from ground
+
+This example code is in the public domain.
+*/
 
 // constants won't change. They're used here to 
 // set pin numbers:

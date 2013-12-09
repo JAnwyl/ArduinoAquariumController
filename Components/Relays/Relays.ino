@@ -1,4 +1,7 @@
-//Playing with relays
+/*
+Jared Anwyl
+Playing with relays
+*/
 
 
 #define RELAY1  6                        
