@@ -7,7 +7,7 @@ Added relay code to test relays for project
 Making this for relays http://www.instructables.com/id/Arduilay/?ALLSTEPS
 Using Ethernet to connect to Arduino externally
 Added float code to use floats
-No arduino and ethernet for communication
+Added DHT11 code (thats a shitty temp sensor)
 
 Alpha
 0_1a No code really Crap really
