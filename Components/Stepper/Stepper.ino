@@ -12,6 +12,11 @@
  Modified 30 Nov. 2009
  by Tom Igoe
  
+ My Stepper is controlled by ULN2003.
+ This sketch is supposed to do 1 revolution then reverse and do another.
+ I can't find the problem but I've been told I have it wired wrong.
+ 6 wires (4 pins then ground and +5v)
+ 
  */
 
 #include <Stepper.h>
