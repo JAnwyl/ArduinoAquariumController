@@ -1,4 +1,8 @@
+/*
 Modified by Jared Anwyl
+seems as though this sensor only changes 1 deg Celsius at a time
+*/
+
 #include <dht.h>
 
 //Set analog pin here
