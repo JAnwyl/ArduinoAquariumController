@@ -1,4 +1,9 @@
+/*
+Modified by Jared Anwyl
+Middle pin 4.7K resistor to ground also wire to arduino pin
+*/
 float temp, tempf;
+//Set pin here
 int tempPin = 0;
 
 void setup()
