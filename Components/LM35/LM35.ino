@@ -1,6 +1,9 @@
 /*
 Modified by Jared Anwyl
-Middle pin 4.7K resistor to ground also wire to arduino pin
+LM35 Pin 1 (Vss) –> Arduino +5V
+LM35 Pin 2 (Signal) –> Arduino Pin 0 
+LM35 Pin 2 (Signal) –> Arduino Gnd via Resistor 4.7K
+LM35 Pin 3 (GND) –> Arduino Ground
 */
 float temp, tempf;
 //Set pin here

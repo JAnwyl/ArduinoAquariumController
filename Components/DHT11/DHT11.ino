@@ -1,6 +1,12 @@
 /*
 Modified by Jared Anwyl
 seems as though this sensor only changes 1 deg Celsius at a time
+because of the 1 deg its not very accurate (or good)
+DHT11 Pin 1 (Vss) –> Arduino +5V
+DHT11 Pin 2 (Signal) –> Arduino Pin 2
+DHT11 Pin 2 (Signal) –> Arduino +5V via Resistor 4.7K
+DHT11 Pin 3 –> N/C
+DHT11 Pin 4 (GND) –> Arduino Ground
 */
 
 #include <dht.h>
