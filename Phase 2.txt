@@ -1,0 +1,12 @@
+Phase #2
+
+IR, Bluetooth and Wifi Control (I have IR and Bluetooth already)
+Salinity Monitor for sump & Saltwater
+Temp: ATO and Saltwater
+Minerals: PH, ORP, O2, Alk, Ca, CO2 (Planted Tanks) Monitor for sump
+Minerals: Nitrates, Nitrites, Ammonia Monitor for sump
+(6)Sockets: Carbon Reactor, Phosban Reactor, Calcium Reactor, HOB, Kalk Pump, CO2
+(2)Algae Turf Scrubber Lights and Pump
+(2)ATO Pump to sump, Heater
+(3)Saltwater Stirrer, Pump to Sump, Heater
+Feeder Logic

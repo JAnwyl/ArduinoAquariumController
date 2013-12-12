@@ -1,0 +1,27 @@
+Pieces: RTC, LCD, Piezo
+
+Measures:
+Temp: DT, Hood, Room, Sump, Saltwater, ATO
+Water level: Sump, ATO, Saltwater, Skimmer Cup
+Salinity: Sump, Saltwater
+Minerals: PH, ORP, O2, Alk, Ca, CO2 (Planted Tanks)
+Minerals: Nitrates, Nitrites, Ammonia
+
+Controls:
+Allows a "wavemaker" option for DT
+Ability to dim lights (Actnic, Reg maybe 3rd and 4th)
+Moonlights
+Dosing (Kalk, Cal, Own Mix)
+Feeder (Stepper Motor)
+Cooling Fans
+
+Sockets: Sump Return Pump, Skimmer, Carbon Reactor, Phosban Reactor, Calcium Reactor, Heater, Chiller, HOB, Kalk Pump
+Algae Turf Scrubber (Pump and Lights)
+ATO (Pump to Sump, Heater)
+Saltwater (Stirer, Pump to Sump, Heater)
+U/V (Light and Pump)
+
+Alerts: Leak, OOB, Email Alert
+
+Controllers: IR, Bluetooth and WiFi (I have IR and Bluetooth already)
+

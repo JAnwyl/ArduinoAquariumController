@@ -1,0 +1,13 @@
+Phase #1
+
+Temp Monitor: DT , Sump, Hood (LM35), Room (DHT11)
+7 Sockets: Turn on heater, 2 Pumps for DT Pumps, 1 Sump return pump, 1 Skimmer pump, 2 UV light & Pump (still think this is worthless)
+Alarm: Leak, OOB and email alert
+Water level: Sump, Skimmer Cup
+lights Dim (Actinic, White)
+Moonlight
+Fan Controls for cooling fans
+LCD
+RTC
+Piezo for alarm
+Control for Wavemaker

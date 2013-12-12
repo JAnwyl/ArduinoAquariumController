@@ -1,6 +1,9 @@
 /*
 Jared Anwyl
 Playing with relays
+No Resistors
+Power and ground to breadboard power externally (Remember ground to Arduino too)
+Digital Pins to Arduino
 Done
 */
 
