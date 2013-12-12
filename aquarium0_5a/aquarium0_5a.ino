@@ -1,47 +1,39 @@
 /*
-Jared Anwyl
-Version 0.5 Alpha
-
+//**************** ArduinoAquariumController ****************
+//Version :   0.5 Alpha
+//AUTHOR :    Jared Anwyl jaredanwyl@gmail.com
+//LICENSE :   GPL
+//DONE :      Nothing
+//TODO :      Phase #1
+//***********************************************************
 I want to make this version stripped down
 except for comments of future features
 This is Psuedo Code/realcode for my aquarium controller
 
-Version 1 will have 8 relays, rtc, lcd, floatswitches, temp guages, Water Sensor, Maybe 4 Relays and next version will have 4 more(?)
-Version 2 will have bluetooth, 8 more relays, IR sensor/remote, wifi or ethernet (Probably Wifi), Bipolor Stepper Motor(4 wires)
-Version 3 will have PH probe, ORP, D.O. (who knows if this will happen)
-
-DHT11 is blue temp sensor
-DS18B20 is Grove Sensor
-DS18B20 is Waterproof Sensor (white = data, red = power, black = ground)  works with the latest downloadable "One Wire" library 
-  Does not come with a pull-up resistor (4.7K), You can drop up to 5 sensors(unique address built into each) on a single Digital I/O point
-
-I used Roger Reeds Aquarium Controller Code to reference
-I possibly unintentionally copied some of his code
-I stole the design of his autofeeder outright
+I stole the design of Roger Reeds autofeeder
 Thanks Roger! Not only do you have a incredible controller but an incredible tank
 
-This code is public domain
+  Table of contents:
+ 
+  Global Variables                          - [#VAR]
+  Pins                                      - [#PIN]
+ 
+  Setup Function                            - [#SETUP]
+  
+  Start Of Main Loop                        - [#LOOP]
+  
+  Methods                                   - [#METHODS]
+ */
 
-I need to rethink the heating/cooling
-Alert Mode, Turn on Speaker till shut off Manually, Leak, Temp OOB, Salinity OOB, Send Email/Text
-Figure out LCD
-Figure out Case statement
-Change Names for relays
-DS1032 is RTC Model
-2 plugs for display lights, 1 for moonlights, 1 for heater, 1 for return pump, 1 for protien, 2 for UV, 2 for display pumps
-Gonna have/need 1 or 2 for fans, 1 for sump light
-Digital: Relay, RTC, IR(TSOP 38)
-Analog: Temperature
-?: Bluetooth, LCD, Stepper Motor
-*/
-
-//Global Variables
+//////////////////////////////////////////////////////Global Variables//////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////#VAR/////////////////////////////////////////////////////////////
 float displayWaterTemp;
 float currentTime;
 boolean waveMaker;
 boolean feeding;
 
-//Define Pins
+////////////////////////////////////////////////////////Define Pins/////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////#PIN//////////////////////////////////////////////////////////////
 int relay_2 = 2;
 int relay_3 = 3;
 int relay_4 = 4;
@@ -58,7 +50,8 @@ int blueIn = 14;
 int blueOut = 15;
 int IR = 16;
 
-
+//////////////////////////////////////////////////////////Setup///////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////#SETUP////////////////////////////////////////////////////////////////
 void setup() {
   Serial.begin(9600); 
    pinMode(2, OUTPUT);//Relay
@@ -78,6 +71,8 @@ void setup() {
    //pinMode(IR, INPUT)//IR
 }
 
+////////////////////////////////////////////////////////Loop////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////#LOOP///////////////////////////////////////////////////////////////////
 void loop() {
   // read the sensor:
   if (Serial.available() > 0) {
@@ -98,7 +93,7 @@ void loop() {
       digitalWrite(4, HIGH);//Test
       break;
     case 'd':    
-      digitalWrite(5, HIGH);//Set RTC
+      digitalWrite(5, HIGH);//Water Change
       break;
     case 'e':    
       digitalWrite(6, HIGH);//Feed (All Display off)
@@ -109,18 +104,15 @@ void loop() {
     case 'g':    
       digitalWrite(8, HIGH);//Display Maintenance
       break;
-    case 'h':    
-      digitalWrite(9, HIGH);//Water Change
-      break;
     default:
-      // turn all the LEDs off:
-      for (int thisPin = 2; thisPin < 10; thisPin++) {
-        digitalWrite(thisPin, LOW);
-      }
+      digitalWrite(2, HIGH);//W/O Wavemaker
+      break;
     } 
   }
 }
 
+////////////////////////////////////////////////////////Methods//////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////#METHODS/////////////////////////////////////////////////////////////////
 void temp(){
   //Controls Heater
   //This isn't right
@@ -228,18 +220,18 @@ void waves(){
 	Serial.print("waves");
 }
 
-void allOn(){//Doesn't Turn all on i.e. lights
+void allOn(){
 	displayPumpsOn();
 	sumpOn();
 	returnPumpOn();
-	Serial.print("allOn");
+	Serial.print("allOn minus lights");
 }
 
-void allOff(){//Doesn't Turn all off i.e. lights
+void allOff(){
 	displayPumpsOff();
 	sumpOff();
 	returnPumpOff();
-	Serial.print("allOff");
+	Serial.print("allOff minus lights");
 }
 		
 void displayPumpsOn(){
@@ -346,18 +338,18 @@ void ultraVioletOff(){
 	Serial.print("ultraVioletOff");
 }
 
-void sumpOn(){//all items but return pump
+void sumpOn(){
 	ultraVioletOn();
 	protienSkimmerOn();
 	heaterOn();
-	Serial.print("sumpOn");
+	Serial.print("sumpOn minus return pump");
 }
 
-void sumpOff(){//all items but return pump
+void sumpOff(){
 	ultraVioletOff();
 	protienSkimmerOff();
 	heaterOff();
-	Serial.print("sumpOff");
+	Serial.print("sumpOff minus return pump");
 }
 
 void alert(){//alert
@@ -366,3 +358,8 @@ void alert(){//alert
         //digitalWrite(, LOW;)//Speaker
 	Serial.print("Alert");
 }
+
+float convertCeliusToFahrenheit(float c) {
+  return(((c*9)/5)+32); 
+}
+

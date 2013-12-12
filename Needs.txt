@@ -1,0 +1,50 @@
+Measures:
+Temp: DT, Hood, Room, Sump, Saltwater, ATO
+Water level: Sump, ATO, Saltwater, Skimmer Cup
+Salinity: Sump, Saltwater
+Minerals: PH, ORP, O2, Alk, Ca, CO2 (Planted Tanks)
+Minerals: Nitrates, Nitrites, Ammonia
+
+Controls:
+Allows a "wavemaker" option for DT
+Ability to dim lights (Actnic, Reg maybe 3rd and 4th)
+Moonlights
+Dosing (Kalk, Cal, Own Mix)
+Feeder (Stepper Motor)
+Cooling Fans
+
+Sockets: Sump Return Pump, Skimmer, Carbon Reactor, Phosban Reactor, Calcium Reactor, Heater, Chiller, HOB, Kalk Pump
+Algae Turf Scrubber (Pump and Lights)
+ATO (Pump to Sump, Heater)
+Saltwater (Stirer, Pump to Sump, Heater)
+U/V (Light and Pump)
+
+Alerts: Leak, OOB, Email Alert
+
+Controllers: IR, Bluetooth and WiFi (I have IR and Bluetooth already)
+
+Phase #1
+
+DT Temp Monitor, Sump Temp, Hood Temp, Room Temp
+7 Sockets: Turn on heater, 2 Pumps for DT Pumps, 1 Sump return pump, 1 Skimmer pump, 2 UV light & Pump(still think this is worthless)
+lights Dim (Actinic, White, Moonlight)
+Fan Controls
+
+Phase #2
+
+IR, Bluetooth and Wifi Control (I have IR and Bluetooth already)
+Salinity Monitor for sump & Saltwater
+Temp: ATO and Saltwater
+PH, ORP, O2, Alk, Ca, CO2 (Planted Tanks) Monitor for sump
+Nitrates, Nitrites, Ammonia Monitor for sump
+Sockets: Carbon Reactor, Phosban Reactor, Calcium Reactor, HOB, Kalk Pump, CO2
+Algae Turf Scrubber Lights and Pump
+ATO Pump to sump, Heater
+Temp Monitor for ATO and Saltwater
+Feeder Logic
+
+Phase #3
+
+Computer Interface #1 ( Link to database, PHP to webpage)
+
+
