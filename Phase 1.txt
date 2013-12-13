@@ -10,4 +10,5 @@ Fan Controls for cooling fans
 LCD
 RTC
 Piezo for alarm
+Button to turn alarm off
 Control for Wavemaker
