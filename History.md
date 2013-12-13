@@ -5,10 +5,11 @@ Gonna save Stepper/feeder for later (Need large enough tank to warant feeder)
 
 Added relay code to test relays for project
 Making this for relays http://www.instructables.com/id/Arduilay/?ALLSTEPS
-Using Ethernet to connect to Arduino externally
+Using Ethernet wire to connect relays to Arduino externally
 Added float code to use floats
 Added DHT11 code (thats a shitty temp sensor)
 Added Piezo but need to check if it requires resistor
+LM35 is done
 
 Alpha
 0_1a No code really Crap really
