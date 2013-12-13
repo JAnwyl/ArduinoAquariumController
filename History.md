@@ -8,6 +8,7 @@ Making this for relays http://www.instructables.com/id/Arduilay/?ALLSTEPS
 Using Ethernet to connect to Arduino externally
 Added float code to use floats
 Added DHT11 code (thats a shitty temp sensor)
+Added Piezo but need to check if it requires resistor
 
 Alpha
 0_1a No code really Crap really
