@@ -1,3 +1,4 @@
+//10K pullup resistors for sda and SCL
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
 

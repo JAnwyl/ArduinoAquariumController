@@ -3,6 +3,7 @@ Jared Anwyl
 Pin 1 is the output so we wire this to a visible LED and resistor
 Pin 2 is ground
 Pin 3 is VCC, connect to 5V
+Pin 3 is on right
 The positive of the Red LED connects to the +6V pin and the negative connects through a 200 to 1000 ohm resistor to the first pin on the IR sensor.
 */
     /* Raw IR decoder sketch!
