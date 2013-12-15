@@ -1,17 +1,18 @@
 //10K pullup resistors for sda and SCL
-#include <Wire.h> 
+#include <Wire.h>
+#include <LCD.h>
 #include <LiquidCrystal_I2C.h>
 
 //Addr: 0x3F, 20 chars & 4 lines
-//0x27 worked for other poster
-LiquidCrystal_I2C lcd(0x3F); 
+LiquidCrystal_I2C	lcd(0x3F,2,1,0,4,5,6,7);
 
 void setup()
 {
     lcd.begin(20,4);               // initialize the lcd 
     lcd.backlight();
+    lcd.home ();
     lcd.setCursor(0, 0);
-    lcd.print("Hello");
+    lcd.print("Jared");
 }
 void loop()
 {
