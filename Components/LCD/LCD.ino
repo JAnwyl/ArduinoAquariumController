@@ -4,7 +4,7 @@
 #include <LiquidCrystal_I2C.h>
 
 //Addr: 0x3F, 20 chars & 4 lines
-LiquidCrystal_I2C	lcd(0x3F,2,1,0,4,5,6,7);
+LiquidCrystal_I2C	lcd(0x3F,2,1,0,4,5,6,7,3,POSITIVE);
 
 void setup()
 {
