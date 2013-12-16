@@ -4,8 +4,7 @@ Turns on and off a light emitting diode(LED) connected to digital
 pin 13, when using a float switch attached to pin 2.
 This works like 75% of time.
 Done
- 
- 
+
 The circuit:
 * LED attached from pin 13 to ground 
 * Float Switch attached to pin 2 from +5V

@@ -1,3 +1,6 @@
+/*
+Constructor is what you need to focus on
+*/
 //10K pullup resistors for sda and SCL
 #include <Wire.h>
 #include <LCD.h>

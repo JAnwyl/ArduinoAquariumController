@@ -5,6 +5,7 @@ char dummyvar; // dummy declaration for STUPID IDE!!!!
  * i2cLCDguesser - guess i2c constructor for pcf8574 lcd backpack
  *
  * Created by Bill Perry 2013-04-16
+ * bperrybap on Aurduino Forum
  * Copyright 2013 - Under creative commons license 3.0:
  * Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)
  * license page: http://creativecommons.org/licenses/by-nc-sa/3.0/

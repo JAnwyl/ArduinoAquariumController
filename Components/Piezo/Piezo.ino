@@ -3,6 +3,7 @@ Jared Anwyl
 Ground and Defined Pin Unless needs resistor
 Tried resistor and was almost too quite to hear
 wouldn't have heard it except breadboard was in face
+Sketch just repeats tone.
 */
 int pinSpeaker = 10;
 

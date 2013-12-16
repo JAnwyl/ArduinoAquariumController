@@ -5,6 +5,7 @@ LM35 Pin 2 (Signal) –> Arduino Pin 0
 LM35 Pin 2 (Signal) –> Arduino Gnd via Resistor 4.7K
 LM35 Pin 3 (GND) –> Arduino Ground
 */
+
 float temp, tempf;
 //Set pin here
 int tempPin = 0;
