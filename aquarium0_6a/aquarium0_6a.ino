@@ -5,7 +5,7 @@
 //LICENSE :   GPL
 //DONE :      Nothing
 //TODO :      Phase #1
-//***********************************************************
+//**********************************************************
 I want to make this version stripped down
 except for comments of future features
 This is Psuedo Code/realcode for my aquarium controller
@@ -240,105 +240,105 @@ void allOff(){
 void displayPumpsOn(){
 	displayPumpLeftOn();
 	displayPumpRightOn();
-	Serial.print("displayPumpsOn");
+	Serial.print("Display Pumps On");
 }
 
 void displayPumpsOff(){
 	displayPumpLeftOff();
 	displayPumpRightOff();
-	Serial.print("displayPumpsOff");
+	Serial.print("Display Pumps Off");
 }
 
 void displayPumpLeftOn(){
 	digitalWrite(displayPumpLeft, HIGH;)
-	Serial.print("displayPumpLeftOn");
+	Serial.print("Display Pump Left On");
 }
 
 void displayPumpRightOn(){
 	digitalWrite(displayPumpRight, HIGH;)
-	Serial.print("displayPumpRightOn");
+	Serial.print("Display Pump Right On");
 }
 
 void displayPumpLeftOff(){
 	digitalWrite(displayPumpLeft, LOW;)
-	Serial.print("displayPumpLeftOff");
+	Serial.print("Display Pump Left Off");
 }
 
 void displayPumpRightOff(){
 	digitalWrite(displayPumpRight, LOW;)
-	Serial.print("displayPumpRightOff");
+	Serial.print("Display Pump Right Off");
 }
 
 void heaterOn(){
 	digitalWrite(heater, HIGH;)
-	Serial.print("heaterOn");
+	Serial.print("Heater On");
 }
 
 void heaterOff(){
 	digitalWrite(heater, LOW;)
-	Serial.print("heaterOff");
+	Serial.print("Heater Off");
 }
 
 void whiteOn(){
 	//digitalWrite(, HIGH;)
-	Serial.print("whiteOn");
+	Serial.print("White On");
 }
 
 void whiteOff(){
 	//digitalWrite(, LOW;)
-	Serial.print("whiteOff");
+	Serial.print("White Off");
 }
 
 void actinicOn(){
 	//digitalWrite(, HIGH;)
-	Serial.print("actinicOn");
+	Serial.print("Actinic On");
 }
 
 void actinicOff(){
 	//digitalWrite(, LOW;)
-	Serial.print("actinicOff");
+	Serial.print("Actinic Off");
 }
 
 void moonlightOn(){
 	//digitalWrite(, HIGH;)
-	Serial.print("moonlightOn");
+	Serial.print("Moonlight On");
 }
 
 void moonlightOff(){
 	//digitalWrite(, LOW;)
-	Serial.print("moonlightOff");
+	Serial.print("Moonlight Off");
 }
 
 void returnPumpOn(){
 	digitalWrite(returnPump, HIGH;)
-	Serial.print("returnPumpOn");
+	Serial.print("Return Pump On");
 }
 
 void returnPumpOff(){
 	digitalWrite(returnPump, LOW;)
-	Serial.print("returnPumpOff");
+	Serial.print("Return Pump Off");
 }
 
 void protienSkimmerOn(){
 	digitalWrite(proteinSkimmer, HIGH;)
-	Serial.print("protienSkimmerOn");
+	Serial.print("Protien Skimmer On");
 }
 
 void protienSkimmerOff(){
 	digitalWrite(proteinSkimmer, LOW;)
-	Serial.print("protienSkimmerOff");
+	Serial.print("Protien Skimmer Off");
 }
 
 void ultraVioletOn(){
 	digitalWrite(uvPumpRelay, HIGH;)//Pump
 	digitalWrite(uvLightRelay, HIGH;)//Light
-	Serial.print("ultraVioletOn");
+	Serial.print("Ultra Violet On");
 }
 
 void ultraVioletOff(){
 	digitalWrite(uvPumpRelay, LOW;)//Pump
 	digitalWrite(uvLightRelay, LOW;)//Light
-	Serial.print("ultraVioletOff");
+	Serial.print("Ultra Violet Off");
 }
 
 void sumpOn(){
