@@ -1,14 +1,14 @@
 Phase #1
 
-Temp Monitor: DT , Sump, Hood (LM35), Room (DHT11)
+Temp Monitor: DT (DS18B20) , Sump (DS18B20), Hood (LM35), Room (DHT11)
 7 Sockets: Turn on heater, 2 Pumps for DT Pumps, 1 Sump return pump, 1 Skimmer pump, 2 UV light & Pump (still think this is worthless)
 Alarm: Leak, OOB and email alert
-Water level: Sump, Skimmer Cup
+Water level: Sump, Skimmer Cup (3 Floats)
 lights Dim (Actinic, White)
 Moonlight
 Fan Controls for cooling fans
-LCD
-RTC
+LCD (SainSmart i2c 2004)
+RTC (DS1302)
 Piezo for alarm
 Button to turn alarm off
-Control for Wavemaker
+Control for Wavemaker (Relays)
