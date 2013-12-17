@@ -1,7 +1,11 @@
 ArduinoAquariumController
 =========================
 I'm working on getting the sensors individually working, then gonna combine them altogether.
-Using a Mega board for production and Uno for development. Comments will show future plans. a at end of filename is for alpha gonna add all sensors then bring it to 1_0b so that is working code. Now its just organizing thoughts. Do a search on Youtube for "aquarium controller Roger" Or something like that and you can see a working arduino controlled controller.
+Using a Mega board for production and Uno for development.
+Comments will show future plans. a at end of filename is for alpha.
+Gonna add all sensors then bring it to 1_0b so that is working code.
+Now its just organizing thoughts.
+Do a search on Youtube for "aquarium controller Roger" Or something like that and you can see a working arduino controller.
 
 Gonna get all sensors working then combine. Once working will go beta and make sure its bug free.
 8 port Relay Module
@@ -16,6 +20,7 @@ LCD Sainsmart LCD2004
 1 IR Device
 1 IR Controller
 1 DC 5V Stepper Step Motor + Driver Test Module Board ULN2003
+1 Momentary Contact Switch to turn off alarm speaker
 
 Gonna save Bluetooth till V2Beta
 Gonna save IR till V2Beta
