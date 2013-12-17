@@ -10,8 +10,8 @@ I want to make this version stripped down
 except for comments of future features
 This is Psuedo Code/realcode for my aquarium controller
 
-I stole the design of Roger Reeds autofeeder
-Thanks Roger! Not only do you have a incredible controller but an incredible tank
+I stole the design of Roger Reeds autofeeder. Thanks Roger!
+Not only do you have a incredible controller but an incredible tank
 
 This code is public domain
 
@@ -51,7 +51,7 @@ const int returnPump = 4; //Relay
 const int proteinSkimmer = 5; //Relay
 const int displayPumpLeft = 6; //Relay
 const int displayPumpRight = 7; //Relay
-const int heater = 8;
+const int heater = 8; //Relay
 //const int relay_1 = 9;
 const int rtcIn = 10;
 const int rtcOut = 11;
@@ -100,8 +100,7 @@ void setup() {
 void loop() {
     switch () {
       case 'a':    
-        digitalWrite(displayPumpLeft, HIGH);
-        digitalWrite(displayPumpRight, HIGH);//W/O Wavemaker
+        displayPumpsOn();//W/O Wavemaker
         break;
       case 'b':    
         waves();//W/Wavemaker
@@ -120,8 +119,7 @@ void loop() {
         displayPumpsOff();//Display Maintenance
         break;
       default:
-        digitalWrite(displayPumpLeft, HIGH);
-        digitalWrite(displayPumpRight, HIGH);//W/O Wavemaker
+        displayPumpsOn();//W/O Wavemaker
         break;
       } 
 }
@@ -368,6 +366,6 @@ void alertButton(){//alert
         if alarmButton == True{
         digitalWrite(alarm, LOW;)//Speaker
         }
-	Serial.print("Alert");
+	Serial.print("Quiet alert speaker");
 }
 
