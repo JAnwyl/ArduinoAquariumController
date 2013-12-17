@@ -208,7 +208,7 @@ void test(){
 	ultraVioletOn();
 	delay(5000);
 	ultraVioletOff;
-	Serial.print("test");
+	Serial.print("Test");
 }
 
 void waves(){
@@ -220,125 +220,125 @@ void waves(){
 		displayPumpRightOn();
 		delay(20000);
 	}
-	Serial.print("waves");
+	Serial.print("Waves");
 }
 
 void allOn(){
 	displayPumpsOn();
 	sumpOn();
 	returnPumpOn();
-	Serial.print("all On minus lights");
+	Serial.print("All on minus lights");
 }
 
 void allOff(){
 	displayPumpsOff();
 	sumpOff();
 	returnPumpOff();
-	Serial.print("all Off minus lights");
+	Serial.print("All off minus lights");
 }
 		
 void displayPumpsOn(){
 	displayPumpLeftOn();
 	displayPumpRightOn();
-	Serial.print("Display Pumps On");
+	Serial.print("Display pumps on");
 }
 
 void displayPumpsOff(){
 	displayPumpLeftOff();
 	displayPumpRightOff();
-	Serial.print("Display Pumps Off");
+	Serial.print("Display pumps off");
 }
 
 void displayPumpLeftOn(){
 	digitalWrite(displayPumpLeft, HIGH;)
-	Serial.print("Display Pump Left On");
+	Serial.print("Display pump left on");
 }
 
 void displayPumpRightOn(){
 	digitalWrite(displayPumpRight, HIGH;)
-	Serial.print("Display Pump Right On");
+	Serial.print("Display pump right on");
 }
 
 void displayPumpLeftOff(){
 	digitalWrite(displayPumpLeft, LOW;)
-	Serial.print("Display Pump Left Off");
+	Serial.print("Display pump left off");
 }
 
 void displayPumpRightOff(){
 	digitalWrite(displayPumpRight, LOW;)
-	Serial.print("Display Pump Right Off");
+	Serial.print("Display pump right off");
 }
 
 void heaterOn(){
 	digitalWrite(heater, HIGH;)
-	Serial.print("Heater On");
+	Serial.print("Heater on");
 }
 
 void heaterOff(){
 	digitalWrite(heater, LOW;)
-	Serial.print("Heater Off");
+	Serial.print("Heater off");
 }
 
 void whiteOn(){
 	//digitalWrite(, HIGH;)
-	Serial.print("White On");
+	Serial.print("White on");
 }
 
 void whiteOff(){
 	//digitalWrite(, LOW;)
-	Serial.print("White Off");
+	Serial.print("White off");
 }
 
 void actinicOn(){
 	//digitalWrite(, HIGH;)
-	Serial.print("Actinic On");
+	Serial.print("Actinic on");
 }
 
 void actinicOff(){
 	//digitalWrite(, LOW;)
-	Serial.print("Actinic Off");
+	Serial.print("Actinic off");
 }
 
 void moonlightOn(){
 	//digitalWrite(, HIGH;)
-	Serial.print("Moonlight On");
+	Serial.print("Moonlight on");
 }
 
 void moonlightOff(){
 	//digitalWrite(, LOW;)
-	Serial.print("Moonlight Off");
+	Serial.print("Moonlight off");
 }
 
 void returnPumpOn(){
 	digitalWrite(returnPump, HIGH;)
-	Serial.print("Return Pump On");
+	Serial.print("Return pump on");
 }
 
 void returnPumpOff(){
 	digitalWrite(returnPump, LOW;)
-	Serial.print("Return Pump Off");
+	Serial.print("Return pump off");
 }
 
 void protienSkimmerOn(){
 	digitalWrite(proteinSkimmer, HIGH;)
-	Serial.print("Protien Skimmer On");
+	Serial.print("Protien skimmer on");
 }
 
 void protienSkimmerOff(){
 	digitalWrite(proteinSkimmer, LOW;)
-	Serial.print("Protien Skimmer Off");
+	Serial.print("Protien skimmer off");
 }
 
 void ultraVioletOn(){
 	digitalWrite(uvPumpRelay, HIGH;)//Pump
 	digitalWrite(uvLightRelay, HIGH;)//Light
-	Serial.print("Ultra Violet On");
+	Serial.print("Ultra violet on");
 }
 
 void ultraVioletOff(){
 	digitalWrite(uvPumpRelay, LOW;)//Pump
 	digitalWrite(uvLightRelay, LOW;)//Light
-	Serial.print("Ultra Violet Off");
+	Serial.print("Ultra violet off");
 }
 
 void sumpOn(){
