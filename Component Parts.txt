@@ -1,0 +1,11 @@
+Component Part#s
+2 x DS18B20
+DHT11
+LM35
+SainSmart i2c 2004 LCD
+3 x Floats
+DS1302 RTC
+SainSmart 8 port relay
+Piezo
+Momentary Contact Button for alarm
+4 Momentary Contact Button for menu

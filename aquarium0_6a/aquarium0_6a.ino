@@ -48,6 +48,8 @@ boolean waveMaker;
 ///////////////////////////////////////#PIN/////////////////////////////////////////
 // constants won't change. They're used here to 
 // set pin numbers:
+//digital 0 and 1 are reserved for tx and rx on mega and uno
+//On mega pins 14-19 are rx and tx 20 & 21 are sda scl 22-53 are plain digital 2-13 are pwm
 const int uvPumpRelay = 2; //Relay
 const int uvLightRelay = 3; //Relay
 const int returnPump = 4; //Relay
@@ -60,10 +62,10 @@ const int rtcIn = 10;
 const int rtcOut = 11;
 const int alarmButton = 12;
 const int alarm = 13;
-const int lm = 15;
-const int sumpHi = 16;
-const int sumpLow = 17;
-const int skimmerHi= 18;
+const int lm = 22;
+const int sumpHi = 23;
+const int sumpLow = 24;
+const int skimmerHi= 25;
 #define dht_dpin A0
 //const int feeder = 14;
 //const int blueIn = ;
@@ -87,7 +89,6 @@ void setup() {
    //pinMode(lcd, OUTPUT);//LCD
    pinMode(alarmButton, INPUT);//Alarm Button
    pinMode(alarm, OUTPUT);//Alarm Piezo
-   pinMode(dht, INPUT);
    pinMode(lm, INPUT);
    pinMode(sumpHi, INPUT);
    pinMode(sumpLow, INPUT);
@@ -100,7 +101,9 @@ void setup() {
 
 /////////////////////////////////////Loop///////////////////////////////////////////
 /////////////////////////////////////#LOOP//////////////////////////////////////////
+
 void loop() {
+/*  
     switch () {
       case 'a':    
         displayPumpsOn();//W/O Wavemaker
@@ -124,7 +127,8 @@ void loop() {
       default:
         displayPumpsOn();//W/O Wavemaker
         break;
-      } 
+      }
+*/      
 }
 
 /////////////////////////////////////Methods////////////////////////////////////////
@@ -133,9 +137,9 @@ void temp(){
   //Controls Heater
   //This isn't right
   //79 is Optimal
-  if(displayWaterTemp <= 77.00){
+  if(displayDTTemp <= 77.00){
   	heaterOn();
-  }else if(displayWaterTemp >=  82.00){
+  }else if(displayDTTemp >=  82.00){
   	heaterOff();
   }
 }
@@ -253,32 +257,32 @@ void displayPumpsOff(){
 }
 
 void displayPumpLeftOn(){
-	digitalWrite(displayPumpLeft, HIGH;)
+	digitalWrite(displayPumpLeft, HIGH);
 	Serial.print("Display pump left on");
 }
 
 void displayPumpRightOn(){
-	digitalWrite(displayPumpRight, HIGH;)
+	digitalWrite(displayPumpRight, HIGH);
 	Serial.print("Display pump right on");
 }
 
 void displayPumpLeftOff(){
-	digitalWrite(displayPumpLeft, LOW;)
+	digitalWrite(displayPumpLeft, LOW);
 	Serial.print("Display pump left off");
 }
 
 void displayPumpRightOff(){
-	digitalWrite(displayPumpRight, LOW;)
+	digitalWrite(displayPumpRight, LOW);
 	Serial.print("Display pump right off");
 }
 
 void heaterOn(){
-	digitalWrite(heater, HIGH;)
+	digitalWrite(heater, HIGH);
 	Serial.print("Heater on");
 }
 
 void heaterOff(){
-	digitalWrite(heater, LOW;)
+	digitalWrite(heater, LOW);
 	Serial.print("Heater off");
 }
 
@@ -313,34 +317,34 @@ void moonlightOff(){
 }
 
 void returnPumpOn(){
-	digitalWrite(returnPump, HIGH;)
+	digitalWrite(returnPump, HIGH);
 	Serial.print("Return pump on");
 }
 
 void returnPumpOff(){
-	digitalWrite(returnPump, LOW;)
+	digitalWrite(returnPump, LOW);
 	Serial.print("Return pump off");
 }
 
 void protienSkimmerOn(){
-	digitalWrite(proteinSkimmer, HIGH;)
+	digitalWrite(proteinSkimmer, HIGH);
 	Serial.print("Protien skimmer on");
 }
 
 void protienSkimmerOff(){
-	digitalWrite(proteinSkimmer, LOW;)
+	digitalWrite(proteinSkimmer, LOW);
 	Serial.print("Protien skimmer off");
 }
 
 void ultraVioletOn(){
-	digitalWrite(uvPumpRelay, HIGH;)//Pump
-	digitalWrite(uvLightRelay, HIGH;)//Light
+	digitalWrite(uvPumpRelay, HIGH);//Pump
+	digitalWrite(uvLightRelay, HIGH);//Light
 	Serial.print("Ultra violet on");
 }
 
 void ultraVioletOff(){
-	digitalWrite(uvPumpRelay, LOW;)//Pump
-	digitalWrite(uvLightRelay, LOW;)//Light
+	digitalWrite(uvPumpRelay, LOW);//Pump
+	digitalWrite(uvLightRelay, LOW);//Light
 	Serial.print("Ultra violet off");
 }
 
@@ -359,16 +363,57 @@ void sumpOff(){
 }
 
 void alert(){//alert
-        digitalWrite(alarm, HIGH;)//Speaker
-        delay(1000)
-        digitalWrite(alarm, LOW;)//Speaker
+        digitalWrite(alarm, HIGH);//Speaker
+        delay(1000);
+        digitalWrite(alarm, LOW);//Speaker
 	Serial.print("Alert");
 }
 
-void alertButton(){//alert
-        if alarmButton == True{
-        digitalWrite(alarm, LOW;)//Speaker
-        }
-	Serial.print("Quiet alert speaker");
-}
+/*
+void alertButton(){
+  // The circuit:
+  // * pushbutton attached from pin 2 to +5V
+  // * 10K resistor attached from pin 2 to ground
+  // Variables will change:
+  int lastButtonState = LOW;   // the previous reading from the input pin
 
+  // the following variables are long's because the time, measured in miliseconds,
+  // will quickly become a bigger number than can be stored in an int.
+  long lastDebounceTime = 0;  // the last time the output pin was toggled
+  long debounceDelay = 50;    // the debounce time; increase if the output flickers
+  
+  void loop() {
+  // read the state of the switch into a local variable:
+  int reading = digitalRead(alarmButton);
+
+  // check to see if you just pressed the button 
+  // (i.e. the input went from LOW to HIGH),  and you've waited 
+  // long enough since the last press to ignore any noise:  
+
+  // If the switch changed, due to noise or pressing:
+  if (reading != lastButtonState) {
+    // reset the debouncing timer
+    lastDebounceTime = millis();
+  } 
+  
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    // whatever the reading is at, it's been there for longer
+    // than the debounce delay, so take it as the actual current state:
+
+    // if the button state has changed:
+    if (reading != buttonState) {
+      buttonState = reading;
+
+      // only toggle the LED if the new button state is HIGH
+      if (buttonState == HIGH) {
+        digitalWrite(alarm, LOW;)//Speaker
+      }
+    }
+  }
+  
+  // save the reading.  Next time through the loop,
+  // it'll be the lastButtonState:
+  lastButtonState = reading;
+  Serial.print("Quiet alert speaker");
+}
+*/
