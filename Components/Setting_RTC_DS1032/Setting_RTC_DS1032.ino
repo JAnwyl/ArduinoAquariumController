@@ -9,6 +9,7 @@
 //          I/O pin   -> Arduino Digital 3
 //          SCLK pin  -> Arduino Digital 4
 
+
 #include <DS1302.h>
 
 // Init the DS1302
