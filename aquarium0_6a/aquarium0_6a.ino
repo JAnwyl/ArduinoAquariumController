@@ -33,6 +33,8 @@ This code is public domain
 #include <Wire.h> //LCD
 #include <LCD.h> //LCD
 #include <LiquidCrystal_I2C.h> //LCD
+#include <OneWire.h> //DS18B20
+#include <DallasTemperature.h> //DS18B20
 
 ////////////////////////////////Global Variables////////////////////////////////////
 /////////////////////////////////////#VAR///////////////////////////////////////////
@@ -49,7 +51,7 @@ boolean waveMaker;
 // constants won't change. They're used here to 
 // set pin numbers:
 //digital 0 and 1 are reserved for tx and rx on mega and uno
-//On mega pins 14-19 are rx and tx 20 & 21 are sda scl 22-53 are plain digital 2-13 are pwm
+//On mega pins 14-19 are rx and tx 20 & 21 are sda & scl 22-53 are plain digital 2-13 are pwm
 const int uvPumpRelay = 2; //Relay
 const int uvLightRelay = 3; //Relay
 const int returnPump = 4; //Relay
@@ -112,16 +114,13 @@ void loop() {
         waves();//W/Wavemaker
         break;
       case 'c':    
-        test();//Test
-        break;
-      case 'd':    
         displayPumpsOff();//Water Change
         returnPumpOff();
         break;
-      case 'e':    
+      case 'd':    
         sumpOff();//Sump Maintenance
         break;
-      case 'f':    
+      case 'e':    
         displayPumpsOff();//Display Maintenance
         break;
       default:
@@ -175,47 +174,6 @@ void fan(){
   //Adjust Voltage depending on Display lighting temp
   //30% - 100%
   //Fans to blow on sump if water temp rises to threshold
-}
-
-void test(){
-	//Turn all off
-	allOff();
-	whiteOff();
-	actinicOff();
-	moonlightOff();
-	sumpOff();
-	returnPumpOff();
-	displayPumpLeftOn();
-	delay(5000);
-	displayPumpLeftOff();
-	displayPumpRightOn();
-	delay(5000);
-	displayPumpRightOff();
-	heaterOn();
-	delay(5000);
-	heaterOff();
-	delay(5000);
-	whiteOn();
-	delay(5000);
-	whiteOff();
-	actinicOn();
-	delay(5000);
-	actinicOff();
-	moonlightOn();
-	delay(5000);
-	moonlightOff();
-	returnPumpOn();
-	delay(5000);
-	returnPumpOff();
-	delay(5000);
-	protienSkimmerOn();
-	delay(5000);
-	protienSkimmerOff();
-	delay(5000);
-	ultraVioletOn();
-	delay(5000);
-	ultraVioletOff;
-	Serial.print("Test");
 }
 
 void waves(){

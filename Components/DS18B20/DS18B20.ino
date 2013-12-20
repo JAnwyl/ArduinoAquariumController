@@ -34,7 +34,8 @@ Serial.print("Requesting temperatures...");
 sensors.requestTemperatures(); // Send the command to get temperatures
 Serial.println("DONE");
  
-Serial.print("Temperature for Device 1 is: ");
+Serial.println("Temperature for Device 1 is");
+Serial.print("Celsius: ");
 Serial.print(sensors.getTempCByIndex(0)); // Why "byIndex"? You can have more than one IC on the same bus. 0 refers to the first IC on the wire
 C = (sensors.getTempCByIndex(0));
 F = (C * 9)/ 5 + 32;
