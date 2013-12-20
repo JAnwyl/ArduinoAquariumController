@@ -2,6 +2,7 @@
 Jared Anwyl
 white = data, red = power, black = ground
 Needs Pullup resistor of 4.7K
+1 Device
 */
 #include <OneWire.h>
 #include <DallasTemperature.h>
