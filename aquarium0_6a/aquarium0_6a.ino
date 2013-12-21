@@ -35,6 +35,7 @@ This code is public domain
 #include <LiquidCrystal_I2C.h> //LCD
 #include <OneWire.h> //DS18B20
 #include <DallasTemperature.h> //DS18B20
+#include <DS1302.h>
 
 ////////////////////////////////Global Variables////////////////////////////////////
 /////////////////////////////////////#VAR///////////////////////////////////////////
@@ -43,6 +44,7 @@ float displaySumpTemp;
 float displayHoodTemp;
 float displayAmbientTemp;
 float currentTime;
+double F,C;
 boolean waveMaker;
 //boolean feeding;
 
@@ -51,7 +53,7 @@ boolean waveMaker;
 // constants won't change. They're used here to 
 // set pin numbers:
 //digital 0 and 1 are reserved for tx and rx on mega and uno
-//On mega pins 14-19 are rx and tx 20 & 21 are sda & scl 22-53 are plain digital 2-13 are pwm
+//22-53 are plain digital 2-13 are pwm
 const int uvPumpRelay = 2; //Relay
 const int uvLightRelay = 3; //Relay
 const int returnPump = 4; //Relay
@@ -60,23 +62,41 @@ const int displayPumpLeft = 6; //Relay
 const int displayPumpRight = 7; //Relay
 const int heater = 8; //Relay
 //const int relay_1 = 9;
-const int rtcIn = 10;
-const int rtcOut = 11;
-const int alarmButton = 12;
+//10-12 are gonna be rtc
 const int alarm = 13;
+//On mega pins 14-19 are rx and tx 20 & 21 are sda & scl lcd uses sda & scl
 const int lm = 22;
 const int sumpHi = 23;
 const int sumpLow = 24;
 const int skimmerHi= 25;
-#define dht_dpin A0
 //const int feeder = 14;
 //const int blueIn = ;
 //const int blueOut = ;
 //const int IR = ;
+#define dht_dpin A0
+#define ONE_WIRE_BUS 2
+
+dht DHT;
+// Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
+OneWire oneWire(ONE_WIRE_BUS);
+// Pass our oneWire reference to Dallas Temperature.
+DallasTemperature sensors(&oneWire);
+//Addr: 0x3F, 20 chars & 4 lines
+//LiquidCrystal_I2C	lcd(0x3F,2,1,0,4,5,6,7,3,POSITIVE);
+DS1302 rtc(10, 11, 12); //10,11,12 Are RTC pins
 
 ///////////////////////////////////////Setup////////////////////////////////////////
 /////////////////////////////////////#SETUP/////////////////////////////////////////
 void setup() {
+  // Set the clock to run-mode, and disable the write protection
+  rtc.halt(false);
+  //lcd.begin(20,4);               // initialize the lcd 
+  //lcd.backlight();
+  //lcd.home ();
+  //lcd.setCursor(0, 0);
+  //lcd.print("Jared");
+  sensors.begin();               // DS18B20
+  
   Serial.begin(9600); 
    pinMode(uvPumpRelay, OUTPUT);//Relay
    pinMode(uvLightRelay, OUTPUT);//Relay
@@ -86,10 +106,6 @@ void setup() {
    pinMode(displayPumpRight, OUTPUT);//Relay
    pinMode(heater, OUTPUT);//Relay
    //pinMode(9, OUTPUT);//Relay
-   pinMode(rtcIn, INPUT);//RTC
-   pinMode(rtcOut, OUTPUT);//RTC
-   //pinMode(lcd, OUTPUT);//LCD
-   pinMode(alarmButton, INPUT);//Alarm Button
    pinMode(alarm, OUTPUT);//Alarm Piezo
    pinMode(lm, INPUT);
    pinMode(sumpHi, INPUT);
@@ -99,12 +115,16 @@ void setup() {
    //pinMode(blueIn, INPUT);//BlueTooth
    //pinMode(blueOut, OUTPUT);//BlueTooth
    //pinMode(IR, INPUT);//IR
+   
 }
 
 /////////////////////////////////////Loop///////////////////////////////////////////
 /////////////////////////////////////#LOOP//////////////////////////////////////////
 
 void loop() {
+  DHT.read11(dht_dpin);
+  sensors.requestTemperatures();//DS18B20
+  
 /*  
     switch () {
       case 'a':    
@@ -321,57 +341,30 @@ void sumpOff(){
 }
 
 void alert(){//alert
-        digitalWrite(alarm, HIGH);//Speaker
-        delay(1000);
-        digitalWrite(alarm, LOW);//Speaker
+        playTone(750, 500);
+        delay(750);
 	Serial.print("Alert");
 }
 
-/*
-void alertButton(){
-  // The circuit:
-  // * pushbutton attached from pin 2 to +5V
-  // * 10K resistor attached from pin 2 to ground
-  // Variables will change:
-  int lastButtonState = LOW;   // the previous reading from the input pin
-
-  // the following variables are long's because the time, measured in miliseconds,
-  // will quickly become a bigger number than can be stored in an int.
-  long lastDebounceTime = 0;  // the last time the output pin was toggled
-  long debounceDelay = 50;    // the debounce time; increase if the output flickers
-  
-  void loop() {
-  // read the state of the switch into a local variable:
-  int reading = digitalRead(alarmButton);
-
-  // check to see if you just pressed the button 
-  // (i.e. the input went from LOW to HIGH),  and you've waited 
-  // long enough since the last press to ignore any noise:  
-
-  // If the switch changed, due to noise or pressing:
-  if (reading != lastButtonState) {
-    // reset the debouncing timer
-    lastDebounceTime = millis();
-  } 
-  
-  if ((millis() - lastDebounceTime) > debounceDelay) {
-    // whatever the reading is at, it's been there for longer
-    // than the debounce delay, so take it as the actual current state:
-
-    // if the button state has changed:
-    if (reading != buttonState) {
-      buttonState = reading;
-
-      // only toggle the LED if the new button state is HIGH
-      if (buttonState == HIGH) {
-        digitalWrite(alarm, LOW;)//Speaker
-      }
+// duration in mSecs, frequency in hertz
+void playTone(long duration, int freq) {
+    duration *= 1000;
+    int period = (1.0 / freq) * 1000000;
+    long elapsed_time = 0;
+    while (elapsed_time < duration) {
+        digitalWrite(alarm,HIGH);
+        delayMicroseconds(period / 2);
+        digitalWrite(alarm, LOW);
+        delayMicroseconds(period / 2);
+        elapsed_time += (period);
     }
-  }
-  
-  // save the reading.  Next time through the loop,
-  // it'll be the lastButtonState:
-  lastButtonState = reading;
-  Serial.print("Quiet alert speaker");
 }
-*/
+
+void setRTC(){
+  rtc.writeProtect(false);
+
+  // The following lines can be commented out to use the values already stored in the DS1302
+  rtc.setDOW(THURSDAY);        // Set Day-of-Week to THURSDAY
+  rtc.setTime(20, 30, 0);     // Set the time to 8:30:00 (24hr format)
+  rtc.setDate(19, 12, 2013);   // Set the date to December 19th, 2013
+}
