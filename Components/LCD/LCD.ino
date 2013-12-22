@@ -1,9 +1,9 @@
 /*
 Constructor is what you need to focus on
+Issues with libraries
 */
 //10K pullup resistors for sda and SCL
 #include <Wire.h>
-#include <LCD.h>
 #include <LiquidCrystal_I2C.h>
 
 //Addr: 0x3F, 20 chars & 4 lines
@@ -15,7 +15,7 @@ void setup()
     lcd.backlight();
     lcd.home ();
     lcd.setCursor(0, 0);
-    lcd.print("Jared");
+    lcd.print("Ja");
 }
 void loop()
 {
