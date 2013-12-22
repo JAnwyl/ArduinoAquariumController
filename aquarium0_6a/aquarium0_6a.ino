@@ -6,10 +6,6 @@
 //DONE :      Nothing
 //TODO :      Phase #1
 //**********************************************************
-I want to make this version stripped down
-except for comments of future features
-This is Psuedo Code/realcode for my aquarium controller
-
 I stole the design of Roger Reeds autofeeder. Thanks Roger!
 Not only do you have a incredible controller but an incredible tank
 
@@ -31,22 +27,21 @@ This code is public domain
 ///////////////////////////////////#LIBRARIES///////////////////////////////////////
 #include <dht.h> //dht
 #include <Wire.h> //LCD
-#include <LCD.h> //LCD
 #include <LiquidCrystal_I2C.h> //LCD
 #include <OneWire.h> //DS18B20
 #include <DallasTemperature.h> //DS18B20
-#include <DS1302.h>
+#include <DS1302.h> //RTC
 
 ////////////////////////////////Global Variables////////////////////////////////////
 /////////////////////////////////////#VAR///////////////////////////////////////////
-float displayDTTemp;
-float displaySumpTemp;
-float displayHoodTemp;
-float displayAmbientTemp;
-float currentTime;
-double F,C;
+double displayDTTempC, displayDTTempF;
+double displaySumpTempC, displaySumpTempF;
+double displayHoodTempC, displayHoodTempF;
+double displayAmbientTempC, displayAmbientTempF;
+double currentTime;
 boolean waveMaker;
-//boolean feeding;
+boolean feeding;
+String AmPm;
 
 /////////////////////////////////////Define Pins////////////////////////////////////
 ///////////////////////////////////////#PIN/////////////////////////////////////////
@@ -64,37 +59,45 @@ const int heater = 8; //Relay
 //const int relay_1 = 9;
 //10-12 are gonna be rtc
 const int alarm = 13;
-//On mega pins 14-19 are rx and tx 20 & 21 are sda & scl lcd uses sda & scl
+//On mega pins 14-19 are rx and tx 20 & 21 are sda & scl
+//lcd uses sda & scl
 const int lm = 22;
 const int sumpHi = 23;
 const int sumpLow = 24;
 const int skimmerHi= 25;
-//const int feeder = 14;
+//const int feeder = ;
 //const int blueIn = ;
 //const int blueOut = ;
 //const int IR = ;
+
+//Analog Pins
 #define dht_dpin A0
 #define ONE_WIRE_BUS 2
 
 dht DHT;
+
 // Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
 OneWire oneWire(ONE_WIRE_BUS);
 // Pass our oneWire reference to Dallas Temperature.
 DallasTemperature sensors(&oneWire);
+
 //Addr: 0x3F, 20 chars & 4 lines
-//LiquidCrystal_I2C	lcd(0x3F,2,1,0,4,5,6,7,3,POSITIVE);
+LiquidCrystal_I2C	lcd(0x3F,2,1,0,4,5,6,7,3,POSITIVE);
+
 DS1302 rtc(10, 11, 12); //10,11,12 Are RTC pins
 
 ///////////////////////////////////////Setup////////////////////////////////////////
 /////////////////////////////////////#SETUP/////////////////////////////////////////
 void setup() {
-  // Set the clock to run-mode, and disable the write protection
+  // Set the clock to run-mode
   rtc.halt(false);
-  //lcd.begin(20,4);               // initialize the lcd 
-  //lcd.backlight();
-  //lcd.home ();
-  //lcd.setCursor(0, 0);
-  //lcd.print("Jared");
+  lcd.begin(20,4);               // initialize the lcd 
+  lcd.backlight();
+  lcd.home ();
+  lcd.setCursor(0, 0);
+  lcd.print("Arduino Aquarium");
+  lcd.setCursor(0, 1);
+  lcd.print("Controller");
   sensors.begin();               // DS18B20
   
   Serial.begin(9600); 
@@ -156,9 +159,9 @@ void temp(){
   //Controls Heater
   //This isn't right
   //79 is Optimal
-  if(displayDTTemp <= 77.00){
+  if(displayDTTempF <= 77.00){
   	heaterOn();
-  }else if(displayDTTemp >=  82.00){
+  }else if(displayDTTempF >=  82.00){
   	heaterOff();
   }
 }
@@ -205,145 +208,119 @@ void waves(){
 		displayPumpRightOn();
 		delay(20000);
 	}
-	Serial.print("Waves");
 }
 
 void allOn(){
 	displayPumpsOn();
 	sumpOn();
 	returnPumpOn();
-	Serial.print("All on minus lights");
 }
 
 void allOff(){
 	displayPumpsOff();
 	sumpOff();
 	returnPumpOff();
-	Serial.print("All off minus lights");
 }
 		
 void displayPumpsOn(){
 	displayPumpLeftOn();
 	displayPumpRightOn();
-	Serial.print("Display pumps on");
 }
 
 void displayPumpsOff(){
 	displayPumpLeftOff();
 	displayPumpRightOff();
-	Serial.print("Display pumps off");
 }
 
 void displayPumpLeftOn(){
 	digitalWrite(displayPumpLeft, HIGH);
-	Serial.print("Display pump left on");
 }
 
 void displayPumpRightOn(){
 	digitalWrite(displayPumpRight, HIGH);
-	Serial.print("Display pump right on");
 }
 
 void displayPumpLeftOff(){
 	digitalWrite(displayPumpLeft, LOW);
-	Serial.print("Display pump left off");
 }
 
 void displayPumpRightOff(){
 	digitalWrite(displayPumpRight, LOW);
-	Serial.print("Display pump right off");
 }
 
 void heaterOn(){
 	digitalWrite(heater, HIGH);
-	Serial.print("Heater on");
 }
 
 void heaterOff(){
 	digitalWrite(heater, LOW);
-	Serial.print("Heater off");
 }
 
 void whiteOn(){
 	//digitalWrite(, HIGH;)
-	Serial.print("White on");
 }
 
 void whiteOff(){
 	//digitalWrite(, LOW;)
-	Serial.print("White off");
 }
 
 void actinicOn(){
 	//digitalWrite(, HIGH;)
-	Serial.print("Actinic on");
 }
 
 void actinicOff(){
 	//digitalWrite(, LOW;)
-	Serial.print("Actinic off");
 }
 
 void moonlightOn(){
 	//digitalWrite(, HIGH;)
-	Serial.print("Moonlight on");
 }
 
 void moonlightOff(){
 	//digitalWrite(, LOW;)
-	Serial.print("Moonlight off");
 }
 
 void returnPumpOn(){
 	digitalWrite(returnPump, HIGH);
-	Serial.print("Return pump on");
 }
 
 void returnPumpOff(){
 	digitalWrite(returnPump, LOW);
-	Serial.print("Return pump off");
 }
 
 void protienSkimmerOn(){
 	digitalWrite(proteinSkimmer, HIGH);
-	Serial.print("Protien skimmer on");
 }
 
 void protienSkimmerOff(){
 	digitalWrite(proteinSkimmer, LOW);
-	Serial.print("Protien skimmer off");
 }
 
 void ultraVioletOn(){
 	digitalWrite(uvPumpRelay, HIGH);//Pump
 	digitalWrite(uvLightRelay, HIGH);//Light
-	Serial.print("Ultra violet on");
 }
 
 void ultraVioletOff(){
 	digitalWrite(uvPumpRelay, LOW);//Pump
 	digitalWrite(uvLightRelay, LOW);//Light
-	Serial.print("Ultra violet off");
 }
 
 void sumpOn(){
 	ultraVioletOn();
 	protienSkimmerOn();
 	heaterOn();
-	Serial.print("Sump on minus return pump");
 }
 
 void sumpOff(){
 	ultraVioletOff();
 	protienSkimmerOff();
 	heaterOff();
-	Serial.print("Sump off minus return pump");
 }
 
 void alert(){//alert
         playTone(750, 500);
         delay(750);
-	Serial.print("Alert");
 }
 
 // duration in mSecs, frequency in hertz
@@ -362,9 +339,29 @@ void playTone(long duration, int freq) {
 
 void setRTC(){
   rtc.writeProtect(false);
-
+  //above turns off write protect bit
+  
   // The following lines can be commented out to use the values already stored in the DS1302
   rtc.setDOW(THURSDAY);        // Set Day-of-Week to THURSDAY
   rtc.setTime(20, 30, 0);     // Set the time to 8:30:00 (24hr format)
   rtc.setDate(19, 12, 2013);   // Set the date to December 19th, 2013
 }
+
+void getRTC(){
+  //Convert char to double
+  //currentTime = rtc.getTimeStr(2);
+  rtc.getTimeStr(2);
+}
+
+/*
+void getAmPm(){
+  char temporaryTime;
+  //char temporaryTime = rtc.getTimeStr();
+  if (temporaryTime > 12){
+    temporaryTime = temporaryTime - 12;
+    AmPm = "Pm";
+  else
+    AmPm = "Am";
+  }
+}
+*/
