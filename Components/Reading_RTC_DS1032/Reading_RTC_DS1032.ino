@@ -31,16 +31,17 @@ void setup()
 
 void loop()
 {
+  
+  // Send date
+  Serial.print(rtc.getDateStr([[FORMAT_SHORT]FORMAT_MIDDLEENDIAN]));
+  Serial.print(" -- ");
+  
   // Send Day-of-Week
   Serial.print(rtc.getDOWStr());
   Serial.print(" ");
   
-  // Send date
-  Serial.print(rtc.getDateStr());
-  Serial.print(" -- ");
-
   // Send time
-  Serial.println(rtc.getTimeStr());
+  Serial.println(rtc.getTimeStr([FORMAT_SHORT]));
   
   // Wait one second before repeating :)
   delay (1000);
