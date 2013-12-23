@@ -34,8 +34,9 @@ Serial.print("C or ");
 float fahrenheit = (((DHT.temperature * 9)/5)+32);
 Serial.print(fahrenheit);
 Serial.println("F ");
-delay(800);//Don't try to access too frequently... in theory
+delay(800);
+//Don't try to access too frequently... in theory
 //should be once per two seconds, fastest,
 //but seems to work after 0.8 second.
-}// end loop()
+}// end loop
 
