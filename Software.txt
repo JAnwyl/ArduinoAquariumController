@@ -1,0 +1,4 @@
+Software
+
+Menu (case statement)
+AmPm() and getRTC() Convert char format to double
