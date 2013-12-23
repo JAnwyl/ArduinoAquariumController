@@ -61,7 +61,6 @@ const int heater = 8; //Relay
 const int alarm = 13;
 //On mega pins 14-19 are rx and tx 20 & 21 are sda & scl
 //lcd uses sda & scl
-const int lm = 22;
 const int sumpHi = 23;
 const int sumpLow = 24;
 const int skimmerHi= 25;
@@ -73,6 +72,7 @@ const int skimmerHi= 25;
 //Analog Pins
 #define dht_dpin A0
 #define ONE_WIRE_BUS 2
+const int lm35 = 22;
 
 dht DHT;
 
@@ -110,7 +110,7 @@ void setup() {
    pinMode(heater, OUTPUT);//Relay
    //pinMode(9, OUTPUT);//Relay
    pinMode(alarm, OUTPUT);//Alarm Piezo
-   pinMode(lm, INPUT);
+   pinMode(lm35, INPUT);
    pinMode(sumpHi, INPUT);
    pinMode(sumpLow, INPUT);
    pinMode(skimmerHi, INPUT);
@@ -182,8 +182,7 @@ void lights(){
 }
 
 void moonlights(){
-  //Moonlight System (1 Relay)
-  //Socket for Moonlights
+  //Moonlight System
   if(currentTime == 22.59){
   	moonlightOn();
   }else if(currentTime == 11.01){
@@ -353,15 +352,15 @@ void getRTC(){
   rtc.getTimeStr(2);
 }
 
-/*
+
 void getAmPm(){
   char temporaryTime;
   //char temporaryTime = rtc.getTimeStr();
   if (temporaryTime > 12){
     temporaryTime = temporaryTime - 12;
     AmPm = "Pm";
-  else
+  }else{
     AmPm = "Am";
   }
 }
-*/
+
