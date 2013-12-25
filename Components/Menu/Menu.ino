@@ -1,3 +1,4 @@
+//MENWIZ example sketch
 //The full code is in library example file Quick_tour.ino
 #include <Wire.h>
 #include <LCD.h>
