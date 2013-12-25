@@ -1,23 +1,22 @@
+//Got Rid of EEPROM Menus
+//6 navi Pins Defined Ereased 2
 //MENWIZ ESAMPLE
 #include <Wire.h>
 //INSERT ALL THE FOLLOWING 5 INCLUDES AFTER INCLUDING WIRE LIB 
 #include <LCD.h>
 #include <LiquidCrystal_I2C.h>
 #include <buttons.h>
+#include <EEPROM.h>
 #include <MENWIZ.h>
-#include <EEPROM.h>    // to be included only if defined EEPROM_SUPPORT
 
 // DEFINE ARDUINO PINS FOR THE NAVIGATION BUTTONS
 #define UP_BUTTON_PIN       9
 #define DOWN_BUTTON_PIN     10
-#define LEFT_BUTTON_PIN     7 
-#define RIGHT_BUTTON_PIN    8
 #define CONFIRM_BUTTON_PIN  12
 #define ESCAPE_BUTTON_PIN   11
 
 //Create global object menu and lcd
 menwiz menu;
-// create lcd obj using LiquidCrystal lib
 LiquidCrystal_I2C	lcd(0x3F,2,1,0,4,5,6,7,3,POSITIVE);
 
 //instantiate global variables to bind to menu
@@ -28,7 +27,6 @@ byte     b=50;
 
 void setup(){
   _menu *r,*s1,*s2;
-  _var *v; 
   int  mem;
 
   Serial.begin(9600);  
@@ -40,7 +38,29 @@ void setup(){
   // inizialize the menu object (20 colums x 4 rows)
   menu.begin(&lcd,20,4);
   //menu.setBehaviour(MW_MENU_INDEX,false);    
-
+/*  
+    switch () {
+      case 'a':    
+        displayPumpsOn();//W/O Wavemaker
+        break;
+      case 'b':    
+        waves();//W/Wavemaker
+        break;
+      case 'c':    
+        displayPumpsOff();//Water Change
+        returnPumpOff();
+        break;
+      case 'd':    
+        sumpOff();//Sump Maintenance
+        break;
+      case 'e':    
+        displayPumpsOff();//Display Maintenance
+        break;
+      default:
+        displayPumpsOn();//W/O Wavemaker
+        break;
+      }
+*/ 
   //create the menu tree
   r=menu.addMenu(MW_ROOT,NULL,F("MAIN MENU"));              //create a root menu at first (required)
     s1=menu.addMenu(MW_SUBMENU,r,F("MEASURE SUBMENU"));     //add a child (submenu) node to the root menu
@@ -69,12 +89,6 @@ void setup(){
     s1=menu.addMenu(MW_VAR,r,F("WRITE TO SERIAL"));             //add a terminal node (that is "variable") create an "action" associated to the terminal node... 
       s1->addVar(MW_ACTION,act);                         //the act function as default will be called when enter button is pushed
       s1->setBehaviour(MW_ACTION_CONFIRM,false);         //...if you don't need action confirmation
-
-    s1=menu.addMenu(MW_VAR,r,F("SAVE TO EPROM"));           //add a terminal node (that is "variable") create an "action" associated to the terminal node... 
-      s1->addVar(MW_ACTION,savevar);                     //the act function as default will be called when enter button is pushed
-
-    s1=menu.addMenu(MW_VAR,r,F("LOAD FROM EEPROM"));        //add a terminal node (that is "variable") create an "action" associated to the terminal node... 
-      s1->addVar(MW_ACTION,loadvar);                     //the act function as default will be called when enter button is pushed
 
   //declare navigation buttons (required)
   menu.navButtons(UP_BUTTON_PIN,DOWN_BUTTON_PIN,ESCAPE_BUTTON_PIN,CONFIRM_BUTTON_PIN);
@@ -107,12 +121,4 @@ void msc(){
 void act(){
   Serial.println("FIRED ACTION!");
  }
- 
-void savevar(){
-  menu.writeEeprom();
-  }
-  
-void loadvar(){
-  menu.readEeprom();
-  }
 
