@@ -23,7 +23,7 @@ int  list,sp=110;
 void setup(){
   _menu *r,*s1,*s2;
 
-  Serial.begin(19200);    
+  Serial.begin(9600);    
   tree.begin(&lcd,20,4); //declare lcd object and screen size to menwiz lib
 
   r=tree.addMenu(MW_ROOT,NULL,F("Root"));
