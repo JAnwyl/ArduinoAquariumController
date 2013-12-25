@@ -68,6 +68,7 @@ const int skimmerHi= 25;
 //const int blueIn = ;
 //const int blueOut = ;
 //const int IR = ;
+const int debounceTime = 20; // number of milliseconds for switch to be stable
 
 //Analog Pins
 #define dht_dpin A0
