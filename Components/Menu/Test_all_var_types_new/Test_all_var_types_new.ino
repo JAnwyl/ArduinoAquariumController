@@ -1,5 +1,6 @@
-//Got Rid of EEPROM Menus
+//Got Rid of EEPROM Menus (Need include for menu library)
 //6 navi Pins Defined Ereased 2
+//Made menus for switch statement
 //MENWIZ ESAMPLE
 #include <Wire.h>
 //INSERT ALL THE FOLLOWING 5 INCLUDES AFTER INCLUDING WIRE LIB 
@@ -21,9 +22,6 @@ LiquidCrystal_I2C	lcd(0x3F,2,1,0,4,5,6,7,3,POSITIVE);
 
 //instantiate global variables to bind to menu
 int      tp=0;
-float    f=26.0;
-boolean  bb=0;
-byte     b=50;
 
 void setup(){
   _menu *r,*s1,*s2;
@@ -37,58 +35,36 @@ void setup(){
   
   // inizialize the menu object (20 colums x 4 rows)
   menu.begin(&lcd,20,4);
-  //menu.setBehaviour(MW_MENU_INDEX,false);    
-/*  
-    switch () {
-      case 'a':    
-        displayPumpsOn();//W/O Wavemaker
-        break;
-      case 'b':    
-        waves();//W/Wavemaker
-        break;
-      case 'c':    
-        displayPumpsOff();//Water Change
-        returnPumpOff();
-        break;
-      case 'd':    
-        sumpOff();//Sump Maintenance
-        break;
-      case 'e':    
-        displayPumpsOff();//Display Maintenance
-        break;
-      default:
-        displayPumpsOn();//W/O Wavemaker
-        break;
-      }
-*/ 
-  //create the menu tree
-  r=menu.addMenu(MW_ROOT,NULL,F("MAIN MENU"));              //create a root menu at first (required)
-    s1=menu.addMenu(MW_SUBMENU,r,F("MEASURE SUBMENU"));     //add a child (submenu) node to the root menu
-    //s1->setBehaviour(MW_MENU_COLLAPSED,true);          
-    
-      s2=menu.addMenu(MW_VAR,s1,F("list"));            //add a terminal node (that is "variable"); 
-          s2->addVar(MW_LIST,&tp);                          //create a variable of type "option list".. 
-          s2->addItem(MW_LIST,F("option 1"));               //add option to the OPTION LIST
-          s2->addItem(MW_LIST,F("option 2"));               //add option to the OPTION LIST
-          s2->addItem(MW_LIST,F("option 3"));               //add option to the OPTION LIST
-          s2->addItem(MW_LIST,F("option 4"));               //add option to the OPTION LIST
-          s2->addItem(MW_LIST,F("option 5"));               //add option to the OPTION LIST
-//          s2->setBehaviour(MW_SCROLL_HORIZONTAL,true);    
-//          s2->setBehaviour(MW_LIST_2COLUMNS,true);          
-//          s2->setBehaviour(MW_LIST_3COLUMNS,true);          
 
-      s2=menu.addMenu(MW_VAR,s1,F("float var"));       //add a terminal node (that is "variable"); 
-          s2->addVar(MW_AUTO_FLOAT,&f,11.00,100.00,0.5); //create a variable of type "float number"... 
-                                                         //...associated to the terminal node and bind it to the app variable "f" of type float
-      s2=menu.addMenu(MW_VAR,s1,F("byte var"));        //add a terminal node (that is "variable"); 
-          s2->addVar(MW_AUTO_BYTE,&b,25,254,10);         //create a variable of type "byte"...
-                                                         //...associated to the terminal node and bind it to the app variable "b" of typr byte
-      s2=menu.addMenu(MW_VAR,s1,F("boolean var"));     //add a terminal node (that is "variable"); 
-          s2->addVar(MW_BOOLEAN,&bb);                    //create a variable of type "boolean" 
-                                                         //...associated to the terminal node and bind it to the app variable "bb" of type boolean
-    s1=menu.addMenu(MW_VAR,r,F("WRITE TO SERIAL"));             //add a terminal node (that is "variable") create an "action" associated to the terminal node... 
-      s1->addVar(MW_ACTION,act);                         //the act function as default will be called when enter button is pushed
-      s1->setBehaviour(MW_ACTION_CONFIRM,false);         //...if you don't need action confirmation
+  //create the menu tree
+  r=menu.addMenu(MW_ROOT,NULL,F("MAIN MENU"));
+    s1=menu.addMenu(MW_SUBMENU,r,F("Settings"));
+      s2=menu.addMenu(MW_VAR,s1,F("Set RTC"));
+        s2->addVar(MW_LIST,&tp);
+          s2->addItem(MW_LIST,F("Day of Week"));
+          s2->addItem(MW_LIST,F("Hour"));
+          s2->addItem(MW_LIST,F("Min"));
+          s2->addItem(MW_LIST,F("Year"));
+
+    s1=menu.addMenu(MW_VAR,r,F("W/Wavemaker"));
+      s1->addVar(MW_ACTION,wave);
+      s1->setBehaviour(MW_ACTION_CONFIRM,false);
+      
+    s1=menu.addMenu(MW_VAR,r,F("W/O Wavemaker"));
+      s1->addVar(MW_ACTION,wowaves);
+      s1->setBehaviour(MW_ACTION_CONFIRM,false);
+      
+    s1=menu.addMenu(MW_VAR,r,F("Waterchange"));
+      s1->addVar(MW_ACTION,water);
+      s1->setBehaviour(MW_ACTION_CONFIRM,false);
+      
+    s1=menu.addMenu(MW_VAR,r,F("Sump Maintenance"));
+      s1->addVar(MW_ACTION,sump);
+      s1->setBehaviour(MW_ACTION_CONFIRM,false);
+      
+    s1=menu.addMenu(MW_VAR,r,F("Display Maintenance"));
+      s1->addVar(MW_ACTION,display);
+      s1->setBehaviour(MW_ACTION_CONFIRM,false);
 
   //declare navigation buttons (required)
   menu.navButtons(UP_BUTTON_PIN,DOWN_BUTTON_PIN,ESCAPE_BUTTON_PIN,CONFIRM_BUTTON_PIN);
@@ -118,7 +94,22 @@ void msc(){
   menu.drawUsrScreen(menu.sbuf);
   }
   
-void act(){
-  Serial.println("FIRED ACTION!");
- }
+void wave(){
+  Serial.println("Wavemaker");
+}
 
+void wowaves(){
+  Serial.println("W/O Wavemaker");
+}
+ 
+void water(){
+  Serial.println("Waterchange");
+}
+
+void sump(){
+  Serial.println("Sump Maintenance");
+}
+
+void display(){
+  Serial.println("Display Maintenance");
+}
