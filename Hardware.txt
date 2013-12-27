@@ -18,4 +18,10 @@ Mono Cord for each Float
 Piezo and RTC in case with Arduino
 Mount for floats (maybe bent plexi)
 
+Breakout for LCD, IR and Buttons
+Finish Relay Breakout
+Project box for Arduino (Ethernet and Stereo jacks for sensors)
+Stereo cord for sensors
+Fix floatswitches
+
 Shield for most items?

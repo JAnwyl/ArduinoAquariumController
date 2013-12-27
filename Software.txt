@@ -1,4 +1,6 @@
 Software
 
-Menu (case statement)
-AmPm() and getRTC() Convert char format to double
+Menu (Preferences & User Menu)
+AmPm()
+getRTC() Convert char format to double
+Floatswitches (Someone said they dont work with arduino) Mine work maybe 75% (Maybe debouncing will work)

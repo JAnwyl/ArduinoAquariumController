@@ -10,6 +10,7 @@ Added float code to use floats
 Added DHT11 code (thats a shitty temp sensor)
 Added Piezo but need to check if it requires resistor
 LM35 is done
+Menu is done
 
 Alpha
 0_1a No code really Crap really
@@ -17,3 +18,5 @@ Alpha
 0_3a Some code (Little less than before commented out for thinking)
 0_4a Some code (Little less than before commented out for thinking)
 0_5a Just organizing layout (Little less than before commented out for thinking)
+0_6a Progress and add Menu
+0_7a Making Menu
