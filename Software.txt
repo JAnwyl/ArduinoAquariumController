@@ -3,4 +3,4 @@ Software
 Menu (Preferences & User Menu)
 AmPm()
 getRTC() Convert char format to double
-Floatswitches (Someone said they dont work with arduino) Mine work maybe 75% (Maybe debouncing will work)
+Floatswitches (Someone said they don't work with arduino) Mine works maybe 75% (Maybe debouncing will work)
