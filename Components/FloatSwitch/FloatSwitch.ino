@@ -3,7 +3,7 @@ Jared Anwyl
 Turns on and off a light emitting diode(LED) connected to digital  
 pin 13, when using a float switch attached to pin 2.
 This works like 75% of time.
-Done
+Was thinking it didn't need debounce but maybe it does.
 
 The circuit:
 * LED attached from pin 13 to ground 
