@@ -22,6 +22,5 @@ Breakout for LCD, IR and Buttons (5 Buttons) 2 LCDs?
 Finish Relay Breakout
 Project box for Arduino (Ethernet and Stereo jacks for sensors)
 Stereo cord for sensors
-Fix floatswitches
 
 Shield for most items?
