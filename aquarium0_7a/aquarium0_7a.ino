@@ -37,10 +37,10 @@ This code is public domain
 
 ////////////////////////////////Global Variables////////////////////////////////////
 /////////////////////////////////////#VAR///////////////////////////////////////////
-double displayDTTempC, displayDTTempF;
-double displaySumpTempC, displaySumpTempF;
-double displayHoodTempC, displayHoodTempF;
-double displayAmbientTempC, displayAmbientTempF;
+double dTTempC, dTTempF;
+double sumpTempC, sumpTempF;
+double hoodTempC, hoodTempF;
+double ambientTempC, ambientTempF;
 double currentTime;
 boolean waveMaker;
 boolean feeding;
@@ -80,8 +80,8 @@ const int skimmerHi= 25;
 
 //Analog Pins
 #define dht_dpin A0
-#define ONE_WIRE_BUS 2
-const int lm35 = 22;
+#define ONE_WIRE_BUS 1
+const int lm35 = 3;
 
 dht DHT;
 menwiz menu;
@@ -157,6 +157,13 @@ void loop() {
   DHT.read11(dht_dpin);
   sensors.requestTemperatures();        //DS18B20
   menu.draw();
+  ambientTempC = analogRead(dht_dpin);
+  ambientTempC = ambientTempC * 0.48828125;
+  ambientTempF = (ambientTempC * 9)/ 5 + 32;
+  dTTempC = (sensors.getTempCByIndex(0));
+  dTTempF = (dTTempC * 9)/ 5 + 32;
+  hoodTempC = DHT.temperature;
+  hoodTempF = (hoodTempC * 9)/ 5 + 32;
 }
 
 /////////////////////////////////////Methods////////////////////////////////////////
@@ -175,57 +182,26 @@ void usrScreen(){
 
 /*
 void usrScreen(){
-  static  char buf[7];
-  strcpy(tree.sbuf,"User screen"); //1st lcd line
-  strcat(tree.sbuf,"\nsetTemp  : ");strcat(tree.sbuf, dtostrf(setTemp, 4, 1, buf));
-  tree.drawUsrScreen(tree.sbuf);
-  }
-  
-void usrScreen(){
-        lcd.begin(20, 4);
-        lcd.setCursor(0,0); 
-        lcd.print("SPD ");
-        lcd.setCursor(6,0);
-        lcd.print("123");
-        lcd.setCursor(12,0); 
-        lcd.print("MDL ");
-        lcd.setCursor(17,0);
-        lcd.print("1");
-        lcd.setCursor(0,1); 
-        lcd.print("SPDST");
-        lcd.setCursor(6,1);
-        lcd.print("123");
-        lcd.setCursor(12,1); 
-        lcd.print("MIN");
-        lcd.setCursor(17,1);
-        lcd.print("255");
-        lcd.setCursor(0,2); 
-        lcd.print("SPDC");
-        lcd.setCursor(6,2);
-        lcd.print("123"); 
-        lcd.setCursor(12,2); 
-        lcd.print("MAX");
-        lcd.setCursor(17,2);
-        lcd.print("0"); 
-        lcd.setCursor(0,3); 
-        lcd.print("BRK");
-        lcd.setCursor(6,3);
-        lcd.print("255");
-        lcd.setCursor(12,3); 
-        lcd.print("DBD");
-        lcd.setCursor(17,3);
-        lcd.print("15");
-  }
-*/
-
-void temp(){
-  //Controls Heater (This isn't right) (79 is Optimal)
-  if(displayDTTempF <= 77.00){
-    heaterOn();
-  }else if(displayDTTempF >=  82.00){
-    heaterOff();
-  }
+    lcd.begin(20,4);               // initialize the lcd 
+    lcd.backlight();
+    lcd.home ();
+    lcd.setCursor(0, 0);
+    lcd.print("Clock:");
+    lcd.print(rtc.getTimeStr([FORMAT_SHORT]));
+    lcd.setCursor(0, 1);
+    lcd.print("Ambient Temp:");
+    lcd.print(ambientTempF);
+    lcd.print("F");
+    lcd.setCursor(0, 2);
+    lcd.print("Tank Temp:");
+    lcd.print(dTTempF);
+    lcd.print("F");
+    lcd.setCursor(0, 3);
+    lcd.print("Hood Temp:");
+    lcd.print(hoodTempF);
+    lcd.print("F");
 }
+*/
 
 void waves(){
   displayPumpLeftOn();
