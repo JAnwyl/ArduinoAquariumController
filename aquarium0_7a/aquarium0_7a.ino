@@ -168,15 +168,28 @@ void loop() {
 
 /////////////////////////////////////Methods////////////////////////////////////////
 /////////////////////////////////////#METHODS///////////////////////////////////////
+/*
 void usrScreen(){
   static  char buf[7];
   strcpy(menu.sbuf,"Clock:");                   //1st lcd line
-  //Serial.print(rtc.getDateStr([[FORMAT_SHORT]FORMAT_MIDDLEENDIAN]));
-  //Serial.print(rtc.getDOWStr());
   //Serial.println(rtc.getTimeStr([FORMAT_SHORT]));
-  strcat(menu.sbuf,"\nAmbient Temp: ");         //2nd lcd line temp = analogRead(tempPin);
-  strcat(menu.sbuf,"\nTank Temp: ");            //3rd lcd line Serial.print(sensors.getTempCByIndex(0));
-  strcat(menu.sbuf,"\nHood Temp: ");            //4th lcd line Serial.print(DHT.temperature);
+  strcat(menu.sbuf,"\nAmbient Temp: ");         //2nd lcd line
+  strcat(menu.sbuf,"\nTank Temp: ");            //3rd lcd line
+  strcat(menu.sbuf,"\nHood Temp: ");            //4th lcd line
+  menu.drawUsrScreen(menu.sbuf);
+}
+*/
+
+void usrScreen(){
+  static  char buf[7];
+  //1st LCD Line
+  strcpy(menu.sbuf,"Clock: ");//strcat(menu.sbuf,itoa((rtc.getTimeStr([FORMAT_SHORT])),buf,10));
+  //2rd LCD Line
+  strcat(menu.sbuf,"Ambient Temp: ");strcat(menu.sbuf,itoa((double)(ambientTempF),buf,10));strcat(menu.sbuf,"\nF");
+  //3rd LCD Line
+  strcat(menu.sbuf,"Tank Temp: ");strcat(menu.sbuf,itoa((double)(dTTempF),buf,10));strcat(menu.sbuf,"\nF");
+  //4th LCDLine
+  strcat(menu.sbuf,"Hood Temp: ");strcat(menu.sbuf,itoa((double)(hoodTempF),buf,10));strcat(menu.sbuf,"\nF");
   menu.drawUsrScreen(menu.sbuf);
 }
 

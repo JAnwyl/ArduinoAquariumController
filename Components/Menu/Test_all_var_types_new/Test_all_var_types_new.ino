@@ -11,10 +11,10 @@
 #include <MENWIZ.h>
 
 // DEFINE ARDUINO PINS FOR THE NAVIGATION BUTTONS
-#define UP_BUTTON_PIN       9
-#define DOWN_BUTTON_PIN     10
-#define CONFIRM_BUTTON_PIN  12
-#define ESCAPE_BUTTON_PIN   11
+#define UP_BUTTON_PIN       26
+#define DOWN_BUTTON_PIN     27
+#define CONFIRM_BUTTON_PIN  28
+#define ESCAPE_BUTTON_PIN   29
 
 //Create global object menu and lcd
 menwiz menu;
@@ -22,6 +22,9 @@ LiquidCrystal_I2C	lcd(0x3F,2,1,0,4,5,6,7,3,POSITIVE);
 
 //instantiate global variables to bind to menu
 int      tp=0;
+float ambientTempF=70.00;
+float dTTempF=78.00;
+float hoodTempF=100.00;
 
 void setup(){
   _menu *r,*s1,*s2;
@@ -82,7 +85,7 @@ void loop(){
   menu.draw(); 
   //PUT APPLICATION CODE HERE (if any)
   }
-
+  
 // user defined callbacks
 // WARNING avoid sprintf usage: it requires > 1.5 kbytes of memory! 
 void msc(){
@@ -93,6 +96,42 @@ void msc(){
   strcat(menu.sbuf,"\n"); //4th lcd line (empty)
   menu.drawUsrScreen(menu.sbuf);
   }
+
+/*
+void msc(){
+  static  char buf[7];
+  //1st LCD Line
+  strcpy(menu.sbuf,"Clock: ");//strcat(menu.sbuf,itoa((rtc.getTimeStr([FORMAT_SHORT])),buf,10));
+  //2rd LCD Line
+  strcat(menu.sbuf,"Ambient Temp: ");strcat(menu.sbuf,"\nF");
+  //3rd LCD Line
+  strcat(menu.sbuf,"Tank Temp: ");strcat(menu.sbuf,"\nF");
+  //4th LCDLine
+  strcat(menu.sbuf,"Hood Temp: ");strcat(menu.sbuf,"\nF");
+  menu.drawUsrScreen(menu.sbuf);
+}
+*/
+/*
+void msc(){
+    lcd.begin(20,4);               // initialize the lcd 
+    lcd.backlight();
+    lcd.home ();
+    lcd.setCursor(0, 0);
+    lcd.print("Clock:");
+    lcd.setCursor(0, 1);
+    lcd.print("Ambient Temp:");
+    lcd.print(ambientTempF);
+    lcd.print("F");
+    lcd.setCursor(0, 2);
+    lcd.print("Tank Temp:");
+    lcd.print(dTTempF);
+    lcd.print("F");
+    lcd.setCursor(0, 3);
+    lcd.print("Hood Temp:");
+    lcd.print(hoodTempF);
+    lcd.print("F");
+}
+*/
   
 void wave(){
   Serial.println("Wavemaker");
