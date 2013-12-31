@@ -157,7 +157,7 @@ void loop() {
   DHT.read11(dht_dpin);
   sensors.requestTemperatures();        //DS18B20
   menu.draw();
-  ambientTempC = analogRead(dht_dpin);
+  ambientTempC = analogRead(lm35);
   ambientTempC = ambientTempC * 0.48828125;
   ambientTempF = (ambientTempC * 9)/ 5 + 32;
   dTTempC = (sensors.getTempCByIndex(0));
