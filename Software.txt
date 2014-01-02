@@ -1,5 +1,5 @@
 Software
 
-Menu (Preferences & User Menu)
+Menu Cast to string then display AddUser (Setup Preferences)
+Setup RTC for AddUser (Char to String)
 AmPm()
-getRTC() Convert char format to double
