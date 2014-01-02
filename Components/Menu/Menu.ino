@@ -100,15 +100,15 @@ void msc(){
 */
 
 void msc(){
-  static  char buf[14];
+  static  char buf[7];
   //1st LCD Line
-  strcpy(menu.sbuf,"Clock: ");//strcat(menu.sbuf,itoa((rtc.getTimeStr([FORMAT_SHORT])),buf,10));
+  strcpy(menu.sbuf,"Clock: ");//strcat(menu.sbuf,rtc.getTimeStr([FORMAT_SHORT]),buf,10));
   //2rd LCD Line
-  strcat(menu.sbuf,"Ambient Temp: ");/*strcat(menu.sbuf,ambientTempF);*/strcat(menu.sbuf,"\nF");
+  strcat(menu.sbuf,"\nAmbient Temp: ");/*strcat(menu.sbuf,ambientTempF);*/strcat(menu.sbuf,"F");
   //3rd LCD Line
-  strcat(menu.sbuf,"Tank Temp: ");/*strcat(menu.sbuf,dTTempF);*/strcat(menu.sbuf,"\nF");
+  strcat(menu.sbuf,"\nTank Temp: ");/*strcat(menu.sbuf,dTTempF);*/strcat(menu.sbuf,"F");
   //4th LCDLine
-  strcat(menu.sbuf,"Hood Temp: ");/*strcat(menu.sbuf,hoodTempF);*/strcat(menu.sbuf,"\nF");
+  strcat(menu.sbuf,"\nHood Temp: ");/*strcat(menu.sbuf,hoodTempF);*/strcat(menu.sbuf,"F");
   menu.drawUsrScreen(menu.sbuf);
 }
 
