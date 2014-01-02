@@ -1,6 +1,9 @@
-//MENWIZ example sketch
-//The full code is in library example file Quick_tour.ino
+//Got Rid of EEPROM Menus (Need include for menu library)
+//6 navi Pins Defined Ereased 2
+//Made menus for switch statement
+//MENWIZ ESAMPLE
 #include <Wire.h>
+//INSERT ALL THE FOLLOWING 5 INCLUDES AFTER INCLUDING WIRE LIB 
 #include <LCD.h>
 #include <LiquidCrystal_I2C.h>
 #include <buttons.h>
@@ -8,44 +11,124 @@
 #include <MENWIZ.h>
 
 // DEFINE ARDUINO PINS FOR THE NAVIGATION BUTTONS
-#define UP_BOTTON_PIN       9
-#define DOWN_BOTTON_PIN     10
-#define LEFT_BOTTON_PIN     7 
-#define RIGHT_BOTTON_PIN    8
-#define CONFIRM_BOTTON_PIN  12
-#define ESCAPE_BOTTON_PIN   11
+#define UP_BUTTON_PIN       26
+#define DOWN_BUTTON_PIN     27
+#define CONFIRM_BUTTON_PIN  28
+#define ESCAPE_BUTTON_PIN   29
 
-menwiz tree;
-// create lcd obj using LiquidCrystal lib
+//Create global object menu and lcd
+menwiz menu;
 LiquidCrystal_I2C	lcd(0x3F,2,1,0,4,5,6,7,3,POSITIVE);
 
-int  list,sp=110;
+//instantiate global variables to bind to menu
+int      tp=0;
+float ambientTempF=70.00;
+float dTTempF=78.00;
+float hoodTempF=100.00;
 
 void setup(){
   _menu *r,*s1,*s2;
+  int  mem;
 
-  Serial.begin(9600);    
-  tree.begin(&lcd,20,4); //declare lcd object and screen size to menwiz lib
+  Serial.begin(9600);  
+  
+  // have a look on memory before menu creation
+  Serial.println(sizeof(menwiz));
+  mem=menu.freeRam();
+  
+  // inizialize the menu object (20 colums x 4 rows)
+  menu.begin(&lcd,20,4);
 
-  r=tree.addMenu(MW_ROOT,NULL,F("Root"));
-    s1=tree.addMenu(MW_SUBMENU,r, F("Node1"));
-      s2=tree.addMenu(MW_VAR,s1, F("Node3"));
-        s2->addVar(MW_LIST,&list);
-        s2->addItem(MW_LIST, F("Option1"));
-        s2->addItem(MW_LIST, F("Option2"));
-        s2->addItem(MW_LIST, F("Option3"));
-      s2=tree.addMenu(MW_VAR,s1, F("Node4"));
-        s2->addVar(MW_AUTO_INT,&sp,0,120,10);  
-    s1=tree.addMenu(MW_VAR,r, F("Node2"));
-      s1->addVar(MW_ACTION,myfunc);
-       tree.navButtons(UP_BOTTON_PIN,DOWN_BOTTON_PIN,LEFT_BOTTON_PIN,RIGHT_BOTTON_PIN,ESCAPE_BOTTON_PIN,CONFIRM_BOTTON_PIN);
+  //create the menu tree
+  r=menu.addMenu(MW_ROOT,NULL,F("MAIN MENU"));
+    s1=menu.addMenu(MW_SUBMENU,r,F("Settings"));
+      s2=menu.addMenu(MW_VAR,s1,F("Set RTC"));
+        s2->addVar(MW_LIST,&tp);
+          s2->addItem(MW_LIST,F("Day of Week"));
+          s2->addItem(MW_LIST,F("Hour"));
+          s2->addItem(MW_LIST,F("Min"));
+          s2->addItem(MW_LIST,F("Year"));
+
+    s1=menu.addMenu(MW_VAR,r,F("W/Wavemaker"));
+      s1->addVar(MW_ACTION,wave);
+      s1->setBehaviour(MW_ACTION_CONFIRM,false);
+      
+    s1=menu.addMenu(MW_VAR,r,F("W/O Wavemaker"));
+      s1->addVar(MW_ACTION,wowaves);
+      s1->setBehaviour(MW_ACTION_CONFIRM,false);
+      
+    s1=menu.addMenu(MW_VAR,r,F("Waterchange"));
+      s1->addVar(MW_ACTION,water);
+      s1->setBehaviour(MW_ACTION_CONFIRM,false);
+      
+    s1=menu.addMenu(MW_VAR,r,F("Sump Maintenance"));
+      s1->addVar(MW_ACTION,sump);
+      s1->setBehaviour(MW_ACTION_CONFIRM,false);
+      
+    s1=menu.addMenu(MW_VAR,r,F("Display Maintenance"));
+      s1->addVar(MW_ACTION,display);
+      s1->setBehaviour(MW_ACTION_CONFIRM,false);
+
+  //declare navigation buttons (required)
+  menu.navButtons(UP_BUTTON_PIN,DOWN_BUTTON_PIN,ESCAPE_BUTTON_PIN,CONFIRM_BUTTON_PIN);
+
+  //(optional)create a user define screen callback to activate after 10 secs (10.000 millis) since last button push 
+  menu.addUsrScreen(msc,10000);
+
+  //(optional) create a splash screen (duration 5.000 millis)with some usefull infos the character \n marks end of LCD line 
+  //(tip): use preallocated internal menu.sbuf buffer to save memory space!
+//  sprintf(menu.sbuf,"MENWIZ TEST V %s\n.Free mem. :%d\n.Used mem  :%d\n.Lap secs  :%d",menu.getVer(),menu.freeRam(),mem-menu.freeRam(),5);
+//  menu.addSplash((char *) menu.sbuf, 5000);
   }
 
 void loop(){
-  tree.draw(); 
+  menu.draw(); 
+  //PUT APPLICATION CODE HERE (if any)
   }
 
-void myfunc(){
-  Serial.println("ACTION FIRED");
+/*  
+// user defined callbacks
+// WARNING avoid sprintf usage: it requires > 1.5 kbytes of memory! 
+void msc(){
+  static  char buf[7];
+  strcpy(menu.sbuf,"User screen"); //1st lcd line
+  strcat(menu.sbuf,"\nUptime (s): ");strcat(menu.sbuf,itoa((int)(millis()/1000),buf,10));//2nd lcd line
+  strcat(menu.sbuf,"\nFree mem  : ");strcat(menu.sbuf,itoa((int)menu.freeRam(),buf,10));//3rd lcd line
+  strcat(menu.sbuf,"\n"); //4th lcd line (empty)
+  menu.drawUsrScreen(menu.sbuf);
   }
+*/
 
+void msc(){
+  static  char buf[14];
+  //1st LCD Line
+  strcpy(menu.sbuf,"Clock: ");//strcat(menu.sbuf,itoa((rtc.getTimeStr([FORMAT_SHORT])),buf,10));
+  //2rd LCD Line
+  strcat(menu.sbuf,"Ambient Temp: ");/*strcat(menu.sbuf,ambientTempF);*/strcat(menu.sbuf,"\nF");
+  //3rd LCD Line
+  strcat(menu.sbuf,"Tank Temp: ");/*strcat(menu.sbuf,dTTempF);*/strcat(menu.sbuf,"\nF");
+  //4th LCDLine
+  strcat(menu.sbuf,"Hood Temp: ");/*strcat(menu.sbuf,hoodTempF);*/strcat(menu.sbuf,"\nF");
+  menu.drawUsrScreen(menu.sbuf);
+}
+
+
+void wave(){
+  Serial.println("Wavemaker");
+}
+
+void wowaves(){
+  Serial.println("W/O Wavemaker");
+}
+ 
+void water(){
+  Serial.println("Waterchange");
+}
+
+void sump(){
+  Serial.println("Sump Maintenance");
+}
+
+void display(){
+  Serial.println("Display Maintenance");
+}
