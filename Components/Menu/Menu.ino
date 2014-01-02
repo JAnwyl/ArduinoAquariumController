@@ -22,9 +22,9 @@ LiquidCrystal_I2C	lcd(0x3F,2,1,0,4,5,6,7,3,POSITIVE);
 
 //instantiate global variables to bind to menu
 int      tp=0;
-float ambientTempF=70.00;
-float dTTempF=78.00;
-float hoodTempF=100.00;
+double ambientTempF=70.00;
+double dTTempF=78.00;
+double hoodTempF=100.00;
 
 void setup(){
   _menu *r,*s1,*s2;
@@ -104,7 +104,7 @@ void msc(){
   //1st LCD Line
   strcpy(menu.sbuf,"Clock: ");//strcat(menu.sbuf,rtc.getTimeStr([FORMAT_SHORT]),buf,10));
   //2rd LCD Line
-  strcat(menu.sbuf,"\nAmbient Temp: ");/*strcat(menu.sbuf,ambientTempF);*/strcat(menu.sbuf,"F");
+  strcat(menu.sbuf,"\nAmbient Temp: ");/*strcat(menu.sbuf,dtostrf,(double)ambientTempF),buf,6;*/strcat(menu.sbuf,"F");
   //3rd LCD Line
   strcat(menu.sbuf,"\nTank Temp: ");/*strcat(menu.sbuf,dTTempF);*/strcat(menu.sbuf,"F");
   //4th LCDLine
