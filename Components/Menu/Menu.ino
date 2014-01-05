@@ -27,11 +27,12 @@ LiquidCrystal_I2C	lcd(0x3F,2,1,0,4,5,6,7,3,POSITIVE);
 //instantiate global variables to bind to menu
 int      tp=0;
 
+double temp=76.00;
+String ambientTemp[]="70.00";
+//chars work and are segmented below (I need to convert a double to a char)
 char ambientTempF[]="70.00";
-double dTTempF=78.00;
-double hoodTempF=100.00;
-char dTemp[];
-char hoodTempF[];
+char dTTempF[]="78.00";
+char hoodTempF[]="100.00";
 
 void setup(){
   _menu *r,*s1,*s2;
@@ -80,7 +81,7 @@ void setup(){
   menu.navButtons(UP_BUTTON_PIN,DOWN_BUTTON_PIN,ESCAPE_BUTTON_PIN,CONFIRM_BUTTON_PIN);
 
   //(optional)create a user define screen callback to activate after 10 secs (10.000 millis) since last button push 
-  menu.addUsrScreen(msc,10000);
+  menu.addUsrScreen(msc,2000);
 
   //(optional) create a splash screen (duration 5.000 millis)with some usefull infos the character \n marks end of LCD line 
   //(tip): use preallocated internal menu.sbuf buffer to save memory space!
@@ -91,7 +92,7 @@ void setup(){
 void loop(){
   menu.draw(); 
   //PUT APPLICATION CODE HERE (if any)
-  //dTemp[]=fmtDouble(dTTempF, 5, buf, sizeof buf);
+  //dTemp=fmtDouble(dTTempF, 6, buf, sizeof buf);
   }
 
 /*  
@@ -111,31 +112,28 @@ void msc(){
 ///*
 void msc(){
   char buffer[6];
-  static  char buf[20];
 
   //1st LCD Line
   strcpy(menu.sbuf,"Clock: ");
-    //strcat(menu.sbuf,rtc.getTimeStr([FORMAT_SHORT]),buf,10));
+    //strcat(menu.sbuf,rtc.getTimeStr([FORMAT_SHORT]));
     
   //2rd LCD Line
-  strcat(menu.sbuf,"\nAmbient Temp: ");
-    //strcat(menu.sbuf,dtostrf((double)ambientTempF),buf,10));
-    //strcat(menu.sbuf,dtostre((double)ambientTempF),buf,10));
+  strcat(menu.sbuf,"\nAmbient Temp:");
     //Below Compiles but only shows clock and turns off backlight
     //strcat(menu.sbuf,dtostrf(dTTempF, 6, 2, buffer));
-    //Below Works with char but doesn't convert double to char
+    //strcat(menu.sbuf,dtostre(dTTempF, 6, 2, buffer));
     strcat(menu.sbuf,ambientTempF);
-    //strcat(menu.sbuf,fmtDouble(dTTempF, 5, buf, sizeof buf));
+    //strcat(menu.sbuf,fmtDouble(ambientTemp, 5, buf, sizeof buf));
     strcat(menu.sbuf,"F");
     
   //3rd LCD Line
-  strcat(menu.sbuf,"\nTank Temp: ");
-    //strcat(menu.sbuf,dTTempF);
+  strcat(menu.sbuf,"\nTank Temp:");
+    strcat(menu.sbuf,dTTempF);
     strcat(menu.sbuf,"F");
     
   //4th LCDLine
-  strcat(menu.sbuf,"\nHood Temp: ");
-    //strcat(menu.sbuf,hoodTempF);
+  strcat(menu.sbuf,"\nHood Temp:");
+    strcat(menu.sbuf,hoodTempF);
     strcat(menu.sbuf,"F");
     
   menu.drawUsrScreen(menu.sbuf);
