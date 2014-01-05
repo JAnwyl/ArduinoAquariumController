@@ -1,6 +1,10 @@
+//dtostrf Double to String
+//dtostre Double to String
+//itoa Int to String
 //Got Rid of EEPROM Menus (Need include for menu library)
 //6 navi Pins Defined Ereased 2
 //Made menus for switch statement
+#include <FormatDouble.h>
 //MENWIZ ESAMPLE
 #include <Wire.h>
 //INSERT ALL THE FOLLOWING 5 INCLUDES AFTER INCLUDING WIRE LIB 
@@ -22,20 +26,23 @@ LiquidCrystal_I2C	lcd(0x3F,2,1,0,4,5,6,7,3,POSITIVE);
 
 //instantiate global variables to bind to menu
 int      tp=0;
-double ambientTempF=70.00;
+
+char ambientTempF[]="70.00";
 double dTTempF=78.00;
 double hoodTempF=100.00;
+char dTemp[];
+char hoodTempF[];
 
 void setup(){
   _menu *r,*s1,*s2;
   int  mem;
 
-  Serial.begin(9600);  
+  Serial.begin(9600);
   
   // have a look on memory before menu creation
   Serial.println(sizeof(menwiz));
   mem=menu.freeRam();
-  
+
   // inizialize the menu object (20 colums x 4 rows)
   menu.begin(&lcd,20,4);
 
@@ -84,11 +91,13 @@ void setup(){
 void loop(){
   menu.draw(); 
   //PUT APPLICATION CODE HERE (if any)
+  //dTemp[]=fmtDouble(dTTempF, 5, buf, sizeof buf);
   }
 
 /*  
 // user defined callbacks
-// WARNING avoid sprintf usage: it requires > 1.5 kbytes of memory! 
+// WARNING avoid sprintf usage: it requires > 1.5 kbytes of memory!
+//This is demo that works
 void msc(){
   static  char buf[7];
   strcpy(menu.sbuf,"User screen"); //1st lcd line
@@ -99,19 +108,39 @@ void msc(){
   }
 */
 
+///*
 void msc(){
-  static  char buf[7];
+  char buffer[6];
+  static  char buf[20];
+
   //1st LCD Line
-  strcpy(menu.sbuf,"Clock: ");//strcat(menu.sbuf,rtc.getTimeStr([FORMAT_SHORT]),buf,10));
+  strcpy(menu.sbuf,"Clock: ");
+    //strcat(menu.sbuf,rtc.getTimeStr([FORMAT_SHORT]),buf,10));
+    
   //2rd LCD Line
-  strcat(menu.sbuf,"\nAmbient Temp: ");/*strcat(menu.sbuf,dtostrf,(double)ambientTempF),buf,6;*/strcat(menu.sbuf,"F");
+  strcat(menu.sbuf,"\nAmbient Temp: ");
+    //strcat(menu.sbuf,dtostrf((double)ambientTempF),buf,10));
+    //strcat(menu.sbuf,dtostre((double)ambientTempF),buf,10));
+    //Below Compiles but only shows clock and turns off backlight
+    //strcat(menu.sbuf,dtostrf(dTTempF, 6, 2, buffer));
+    //Below Works with char but doesn't convert double to char
+    strcat(menu.sbuf,ambientTempF);
+    //strcat(menu.sbuf,fmtDouble(dTTempF, 5, buf, sizeof buf));
+    strcat(menu.sbuf,"F");
+    
   //3rd LCD Line
-  strcat(menu.sbuf,"\nTank Temp: ");/*strcat(menu.sbuf,dTTempF);*/strcat(menu.sbuf,"F");
+  strcat(menu.sbuf,"\nTank Temp: ");
+    //strcat(menu.sbuf,dTTempF);
+    strcat(menu.sbuf,"F");
+    
   //4th LCDLine
-  strcat(menu.sbuf,"\nHood Temp: ");/*strcat(menu.sbuf,hoodTempF);*/strcat(menu.sbuf,"F");
+  strcat(menu.sbuf,"\nHood Temp: ");
+    //strcat(menu.sbuf,hoodTempF);
+    strcat(menu.sbuf,"F");
+    
   menu.drawUsrScreen(menu.sbuf);
 }
-
+//*/
 
 void wave(){
   Serial.println("Wavemaker");
