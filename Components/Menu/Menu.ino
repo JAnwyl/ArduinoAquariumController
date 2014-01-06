@@ -4,7 +4,6 @@
 //Got Rid of EEPROM Menus (Need include for menu library)
 //6 navi Pins Defined Ereased 2
 //Made menus for switch statement
-#include <FormatDouble.h>
 //MENWIZ ESAMPLE
 #include <Wire.h>
 //INSERT ALL THE FOLLOWING 5 INCLUDES AFTER INCLUDING WIRE LIB 
@@ -27,9 +26,11 @@ LiquidCrystal_I2C	lcd(0x3F,2,1,0,4,5,6,7,3,POSITIVE);
 //instantiate global variables to bind to menu
 int      tp=0;
 
-double temp=76.00;
-String ambientTemp[]="70.00";
-//chars work and are segmented below (I need to convert a double to a char)
+double ambientTemp=30.00;
+double dTTemp;
+double hoodTemp;
+
+//chars work and are segmented below (I need to convert a double (sensor value) to a char(Menu input))
 char ambientTempF[]="70.00";
 char dTTempF[]="78.00";
 char hoodTempF[]="100.00";
@@ -92,7 +93,6 @@ void setup(){
 void loop(){
   menu.draw(); 
   //PUT APPLICATION CODE HERE (if any)
-  //dTemp=fmtDouble(dTTempF, 6, buf, sizeof buf);
   }
 
 /*  
@@ -115,15 +115,14 @@ void msc(){
 
   //1st LCD Line
   strcpy(menu.sbuf,"Clock: ");
-    //strcat(menu.sbuf,rtc.getTimeStr([FORMAT_SHORT]));
     
   //2rd LCD Line
   strcat(menu.sbuf,"\nAmbient Temp:");
-    //Below Compiles but only shows clock and turns off backlight
-    //strcat(menu.sbuf,dtostrf(dTTempF, 6, 2, buffer));
-    //strcat(menu.sbuf,dtostre(dTTempF, 6, 2, buffer));
-    strcat(menu.sbuf,ambientTempF);
-    //strcat(menu.sbuf,fmtDouble(ambientTemp, 5, buf, sizeof buf));
+    //Below seems to work
+    strcat(menu.sbuf,dtostrf(ambientTemp, 6, 2, buffer));
+    //strcat(menu.sbuf,dtostre(ambientTemp, 6, 2, buffer));
+    //Below works
+    //strcat(menu.sbuf,ambientTempF);
     strcat(menu.sbuf,"F");
     
   //3rd LCD Line
