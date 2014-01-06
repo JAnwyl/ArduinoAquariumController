@@ -4,10 +4,7 @@
 //AUTHOR :    Jared Anwyl jaredanwyl@gmail.com
 //LICENSE :   GPL
 //TODO :      Read Software & Hardware
-//**********************************************************
-I stole the design of Roger Reeds autofeeder. Thanks Roger!
-Not only do you have a incredible controller but an incredible tank
-
+//***********************************************************
 This code is public domain
 
   Table of contents:
@@ -60,14 +57,14 @@ const int proteinSkimmer = 5; //Relay
 const int displayPumpLeft = 6; //Relay
 const int displayPumpRight = 7; //Relay
 const int heater = 8; //Relay
-//const int relay_1 = 9;
+const int atoAirPump = 9; //Relay
 //10-12 are gonna be rtc
-const int alarm = 13;
+const int alarm = 13; //Alarm Piezo
 //On mega pins 14-19 are rx and tx 20 & 21 are sda & scl
 //lcd uses sda & scl or 20 &21
-const int sumpHi = 23;
-const int sumpLow = 24;
-const int skimmerHi= 25;
+const int sumpHi = 23; //Trigger Alarm
+const int sumpLow = 24; //Trigger Ato
+const int skimmerHi= 25; //Trigger Alarm till skimmer dumped
 // DEFINE ARDUINO PINS FOR THE NAVIGATION BUTTONS
 #define UP_BUTTON_PIN       26
 #define DOWN_BUTTON_PIN     27
@@ -81,7 +78,7 @@ const int skimmerHi= 25;
 //Analog Pins
 #define dht_dpin A0
 #define ONE_WIRE_BUS 1
-const int lm35 = 3;
+const int lm35 = 2;
 
 dht DHT;
 menwiz menu;
@@ -110,7 +107,7 @@ void setup() {
   pinMode(displayPumpLeft, OUTPUT);//Relay
   pinMode(displayPumpRight, OUTPUT);//Relay
   pinMode(heater, OUTPUT);//Relay
-  //pinMode(9, OUTPUT);//Relay
+  pinMode(atoAirPump, OUTPUT);//Relay
   pinMode(alarm, OUTPUT);//Alarm Piezo
   pinMode(lm35, INPUT);
   pinMode(sumpHi, INPUT);
@@ -143,7 +140,7 @@ void setup() {
     s1=menu.addMenu(MW_VAR,r,F("Sump Maintenance"));
       s1->addVar(MW_ACTION,sumpOff);
       
-    s1=menu.addMenu(MW_VAR,r,F("Display Maintenance"));
+    s1=menu.addMenu(MW_VAR,r,F("Display Tank Maintenance"));
       s1->addVar(MW_ACTION,displayPumpsOff);
       
   menu.navButtons(UP_BUTTON_PIN,DOWN_BUTTON_PIN,ESCAPE_BUTTON_PIN,CONFIRM_BUTTON_PIN);
@@ -156,7 +153,6 @@ void setup() {
 void loop() {
   DHT.read11(dht_dpin);
   sensors.requestTemperatures();        //DS18B20
-  menu.draw();
   ambientTempC = analogRead(lm35);
   ambientTempC = ambientTempC * 0.48828125;
   ambientTempF = (ambientTempC * 9)/ 5 + 32;
@@ -164,57 +160,40 @@ void loop() {
   dTTempF = (dTTempC * 9)/ 5 + 32;
   hoodTempC = DHT.temperature;
   hoodTempF = (hoodTempC * 9)/ 5 + 32;
+  menu.draw();
+  ato();
 }
 
 /////////////////////////////////////Methods////////////////////////////////////////
 /////////////////////////////////////#METHODS///////////////////////////////////////
-/*
-void usrScreen(){
-  static  char buf[7];
-  strcpy(menu.sbuf,"Clock:");                   //1st lcd line
-  //Serial.println(rtc.getTimeStr([FORMAT_SHORT]));
-  strcat(menu.sbuf,"\nAmbient Temp: ");         //2nd lcd line
-  strcat(menu.sbuf,"\nTank Temp: ");            //3rd lcd line
-  strcat(menu.sbuf,"\nHood Temp: ");            //4th lcd line
-  menu.drawUsrScreen(menu.sbuf);
-}
-*/
-
 void usrScreen(){
   static  char buf[7];
   //1st LCD Line
-  strcpy(menu.sbuf,"Clock: ");//strcat(menu.sbuf,itoa((rtc.getTimeStr([FORMAT_SHORT])),buf,10));
+  strcpy(menu.sbuf,"Clock: ");
+    //strcat(menu.sbuf,rtc.getTimeStr[FORMAT_SHORT]);
   //2rd LCD Line
-  strcat(menu.sbuf,"Ambient Temp: ");strcat(menu.sbuf,itoa((double)(ambientTempF),buf,10));strcat(menu.sbuf,"\nF");
+  strcat(menu.sbuf,"Air Temp: ");
+    strcat(menu.sbuf,dtostrf(ambientTempF, 5, 2, buf));
+    strcat(menu.sbuf,"\nF");
   //3rd LCD Line
-  strcat(menu.sbuf,"Tank Temp: ");strcat(menu.sbuf,itoa((double)(dTTempF),buf,10));strcat(menu.sbuf,"\nF");
+  strcat(menu.sbuf,"Tank Temp: ");
+    strcat(menu.sbuf,dtostrf(dTTempF, 5, 2, buf));
+    strcat(menu.sbuf,"\nF");
   //4th LCDLine
-  strcat(menu.sbuf,"Hood Temp: ");strcat(menu.sbuf,itoa((double)(hoodTempF),buf,10));strcat(menu.sbuf,"\nF");
+  strcat(menu.sbuf,"Hood Temp: ");
+    strcat(menu.sbuf,dtostrf(hoodTempF, 5, 2, buf));
+    strcat(menu.sbuf,"\nF");
+    
   menu.drawUsrScreen(menu.sbuf);
 }
 
-/*
-void usrScreen(){
-    lcd.begin(20,4);               // initialize the lcd 
-    lcd.backlight();
-    lcd.home ();
-    lcd.setCursor(0, 0);
-    lcd.print("Clock:");
-    lcd.print(rtc.getTimeStr([FORMAT_SHORT]));
-    lcd.setCursor(0, 1);
-    lcd.print("Ambient Temp:");
-    lcd.print(ambientTempF);
-    lcd.print("F");
-    lcd.setCursor(0, 2);
-    lcd.print("Tank Temp:");
-    lcd.print(dTTempF);
-    lcd.print("F");
-    lcd.setCursor(0, 3);
-    lcd.print("Hood Temp:");
-    lcd.print(hoodTempF);
-    lcd.print("F");
+void ato(){
+  If (digitalread(sumpLow) == LOW){
+    digitalWrite(atoAirPump, HIGH);
+  }else{
+    digitalWrite(atoAirPump, LOW);
+  }
 }
-*/
 
 void waves(){
   displayPumpLeftOn();

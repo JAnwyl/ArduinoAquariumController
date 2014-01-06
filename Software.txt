@@ -1,5 +1,6 @@
 Software
 
-Menu Cast to string then display AddUser (Setup Preferences)
-Setup RTC for AddUser (Char to String)
+Menu (Setup Preferences(RTC))
 AmPm()
+Convert doubles(sensor data) to chars(menu input)
+Convert RTC to chars (menu input)
