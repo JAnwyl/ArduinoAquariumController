@@ -41,6 +41,7 @@ double ambientTempC, ambientTempF;
 double currentTime;
 boolean waveMaker;
 boolean feeding;
+boolean sump;
 String AmPm;
 
 int      tp=0;
@@ -127,6 +128,14 @@ void setup() {
         s2->addItem(MW_LIST,F("24 Hour"));
         s2->addItem(MW_LIST,F("Min"));
         s2->addItem(MW_LIST,F("Year"));
+      s2=menu.addMenu(MW_VAR,s1,F("Lighting"));
+        s2->addVar(MW_LIST,&tp);
+        s2->addItem(MW_LIST,F("On"));
+        s2->addItem(MW_LIST,F("Off"));
+      s2=menu.addMenu(MW_VAR,s1,F("Moon Lights"));
+        s2->addVar(MW_LIST,&tp);
+        s2->addItem(MW_LIST,F("On"));
+        s2->addItem(MW_LIST,F("Off"));
 
     s1=menu.addMenu(MW_VAR,r,F("W/Wavemaker"));
       s1->addVar(MW_ACTION,waves);
@@ -162,6 +171,7 @@ void loop() {
   hoodTempF = (hoodTempC * 9)/ 5 + 32;
   menu.draw();
   ato();
+  alarm();
 }
 
 /////////////////////////////////////Methods////////////////////////////////////////
@@ -187,8 +197,13 @@ void usrScreen(){
   menu.drawUsrScreen(menu.sbuf);
 }
 
+void alarm(){
+  
+}
+
 void ato(){
-  If (digitalread(sumpLow) == LOW){
+  sump = digitalRead(sumpLow);
+  if (sump == LOW){
     digitalWrite(atoAirPump, HIGH);
   }else{
     digitalWrite(atoAirPump, LOW);
