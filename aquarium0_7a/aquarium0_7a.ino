@@ -60,7 +60,7 @@ const int displayPumpRight = 7; //Relay
 const int heater = 8; //Relay
 const int atoAirPump = 9; //Relay
 //10-12 are gonna be rtc
-const int alarm = 13; //Alarm Piezo
+const int piezo = 13; //Alarm Piezo
 //On mega pins 14-19 are rx and tx 20 & 21 are sda & scl
 //lcd uses sda & scl or 20 &21
 const int sumpHi = 23; //Trigger Alarm
@@ -109,7 +109,7 @@ void setup() {
   pinMode(displayPumpRight, OUTPUT);//Relay
   pinMode(heater, OUTPUT);//Relay
   pinMode(atoAirPump, OUTPUT);//Relay
-  pinMode(alarm, OUTPUT);//Alarm Piezo
+  pinMode(piezo, OUTPUT);//Alarm Piezo
   pinMode(lm35, INPUT);
   pinMode(sumpHi, INPUT);
   pinMode(sumpLow, INPUT);
@@ -314,9 +314,9 @@ void playTone(long duration, int freq) {
   int period = (1.0 / freq) * 1000000;
   long elapsed_time = 0;
   while (elapsed_time < duration) {
-    digitalWrite(alarm,HIGH);
+    digitalWrite(piezo,HIGH);
     delayMicroseconds(period / 2);
-    digitalWrite(alarm, LOW);
+    digitalWrite(piezo, LOW);
     delayMicroseconds(period / 2);
     elapsed_time += (period);
   }
