@@ -1,0 +1,22 @@
+Par Meter
+Lighting Controllers (moonlight Controller)
+Tank Controller
+
+Float
+RTC
+Relays
+DHT11 Temp gauge
+LM35 Temp gauge
+DS18B20
+LCD
+Piezo
+Dosing
+PH Monitor
+ORP Sensor
+D.O. Sensor
+Wireless (grabbing data)
+Ethernet (grabbing data)
+Remote Control
+Stepper Motor for feeding
+Switch/keypad for controls
+PWM for fans
