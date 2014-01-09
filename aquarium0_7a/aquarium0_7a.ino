@@ -40,6 +40,7 @@ double hoodTempC, hoodTempF;
 double ambientTempC, ambientTempF;
 double currentTime;
 boolean waveMaker;
+boolean soundAlarm;
 boolean feeding;
 boolean sump;
 String AmPm;
@@ -206,6 +207,10 @@ setTimeOfDay(){
 setYear(){
 }
 
+void alarm(){
+  
+}
+
 void usrScreen(){
   static  char buf[7];
   //1st LCD Line
@@ -225,10 +230,6 @@ void usrScreen(){
     strcat(menu.sbuf,"\nF");
     
   menu.drawUsrScreen(menu.sbuf);
-}
-
-void alarm(){
-  
 }
 
 void ato(){
