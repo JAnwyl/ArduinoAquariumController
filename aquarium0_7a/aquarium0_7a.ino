@@ -83,7 +83,7 @@ const int lm35 = 2;
 
 dht DHT;
 menwiz menu;
-// Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
+// Setup a oneWire instance to communicate with any OneWire devices
 OneWire oneWire(ONE_WIRE_BUS);
 // Pass our oneWire reference to Dallas Temperature.
 DallasTemperature sensors(&oneWire);
@@ -176,6 +176,36 @@ void loop() {
 
 /////////////////////////////////////Methods////////////////////////////////////////
 /////////////////////////////////////#METHODS///////////////////////////////////////
+setLightsOn(){
+}
+
+setActnicOn(){
+}
+
+setMoonlightsOn(){
+}
+
+setLightsOff(){
+}
+
+setActnicOff(){
+}
+
+setMoonlightsOff(){
+}
+
+setDayOfWeek(){
+}
+
+setCalenderDate(){
+}
+
+setTimeOfDay(){
+}
+
+setYear(){
+}
+
 void usrScreen(){
   static  char buf[7];
   //1st LCD Line
