@@ -23,32 +23,39 @@ DS1302 rtc(10, 11, 12); //10,11,12 Are RTC pins
 
 void setup() {
   rtc.halt(false);              // Set the clock to run-mode
-  _menu *r,*s1,*s2,*s3;             //Menu
+  _menu *r,*s1,*s2,*s3,*s4;             //Menu
   menu.begin(&lcd,20,4);        // inizialize the menu object (20 colums x 4 rows)
   
   Serial.begin(9600);
   //create the menu tree
   r=menu.addMenu(MW_ROOT,NULL,F("MAIN MENU"));
     s1=menu.addMenu(MW_SUBMENU,r,F("Settings"));
+    
       s2=menu.addMenu(MW_VAR,s1,F("Set RTC"));
         s2->addVar(MW_LIST,&tp);
         s2->addItem(MW_LIST,F("Day of Week"));
-          s3->addVar(MW_ACTION,setDayOfWeek);
         s2->addItem(MW_LIST,F("24 Hour"));
-          s3->addVar(MW_ACTION,setTwentyFourHour);
         s2->addItem(MW_LIST,F("Min"));
-          s3->addVar(MW_ACTION,setMin);
         s2->addItem(MW_LIST,F("Year"));
-          s3->addVar(MW_ACTION,setYear);
-      s2=menu.addMenu(MW_VAR,s1,F("Lighting"));
-        s2->addVar(MW_LIST,&lp);
-        s2->addItem(MW_LIST,F("On"));
-        s2->addItem(MW_LIST,F("Off"));
-      s2=menu.addMenu(MW_VAR,s1,F("Moon Lights"));
-        s2->addVar(MW_LIST,&mp);
-        s2->addItem(MW_LIST,F("On"));
-        s2->addItem(MW_LIST,F("Off"));
-
+        
+      s2=menu.addMenu(MW_SUBMENU,s1,F("Set White Lighting"));
+        s3=menu.addMenu(MW_VAR,s2,F("White Lighting On"));
+        s3->addVar(MW_ACTION,setWhiteLightsOn);
+        s3=menu.addMenu(MW_VAR,s2,F("White Lighting Off"));
+        s3->addVar(MW_ACTION,setWhiteLightsOff);
+       
+      s2=menu.addMenu(MW_SUBMENU,s1,F("Set Actnic Lighting"));
+        s3=menu.addMenu(MW_VAR,s2,F("Actnic Lighting On"));
+        s3->addVar(MW_ACTION,setActnicLightsOn);
+        s3=menu.addMenu(MW_VAR,s2,F("Actnic Lighting Off"));
+        s3->addVar(MW_ACTION,setActnicLightsOff);
+        
+      s2=menu.addMenu(MW_SUBMENU,s1,F("Set Moonlights"));
+        s3=menu.addMenu(MW_VAR,s2,F("Moonlights On"));
+        s3->addVar(MW_ACTION,setMoonlightsOn);
+        s3=menu.addMenu(MW_VAR,s2,F("Moonlights Off"));
+        s3->addVar(MW_ACTION,setMoonlightsOff);
+       
     s1=menu.addMenu(MW_VAR,r,F("W/Wavemaker"));
       s1->addVar(MW_ACTION,waves);
           
@@ -59,22 +66,28 @@ void loop() {
   menu.draw();
 }
 
-void setLightsOn(){
+void setActnicLightsOn(){
+    Serial.println("Set Actnic Lights On");
 }
 
-void setActnicOn(){
+void setActnicLightsOff(){
+    Serial.println("Set Actnic Lights Off");
 }
 
 void setMoonlightsOn(){
+    Serial.println("Set Moonlights Off");
 }
 
-void setLightsOff(){
+void setMoonlightsOn(){
+    Serial.println("Set Moonlights On");
 }
 
-void setActnicOff(){
+void setWhiteLightsOn(){
+    Serial.println("White Lights On");
 }
 
-void setMoonlightsOff(){
+void setWhiteLightsOff(){
+    Serial.println("White Lights Off");
 }
 
 void setDayOfWeek(){
@@ -91,10 +104,6 @@ void setTwentyFourHour(){
 
 void setYear(){
   Serial.println("SetYear");
-}
-
-void alarm(){
-  
 }
 
 void waves(){
