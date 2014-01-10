@@ -31,7 +31,7 @@ void setup() {
   r=menu.addMenu(MW_ROOT,NULL,F("MAIN MENU"));
     s1=menu.addMenu(MW_SUBMENU,r,F("Settings"));
     
-      s2=menu.addMenu(MW_VAR,s1,F("Set RTC"));
+      s2=menu.addMenu(MW_SUBMENU,s1,F("Set RTC"));
         s2->addVar(MW_LIST,&tp);
         s2->addItem(MW_LIST,F("Day of Week"));
         s2->addItem(MW_LIST,F("24 Hour"));
