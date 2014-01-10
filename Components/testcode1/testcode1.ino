@@ -39,15 +39,15 @@ void setup() {
         s2->addItem(MW_LIST,F("Year"));
         
       s2=menu.addMenu(MW_SUBMENU,s1,F("Set White Lighting"));
-        s3=menu.addMenu(MW_VAR,s2,F("White Lighting On"));
+        s3=menu.addMenu(MW_VAR,s2,F("White Sunrise"));
         s3->addVar(MW_ACTION,setWhiteLightsOn);
-        s3=menu.addMenu(MW_VAR,s2,F("White Lighting Off"));
+        s3=menu.addMenu(MW_VAR,s2,F("White Sunset"));
         s3->addVar(MW_ACTION,setWhiteLightsOff);
        
-      s2=menu.addMenu(MW_SUBMENU,s1,F("Set Actnic Lighting"));
+      s2=menu.addMenu(MW_SUBMENU,s1,F("Actnic Sunrise"));
         s3=menu.addMenu(MW_VAR,s2,F("Actnic Lighting On"));
         s3->addVar(MW_ACTION,setActnicLightsOn);
-        s3=menu.addMenu(MW_VAR,s2,F("Actnic Lighting Off"));
+        s3=menu.addMenu(MW_VAR,s2,F("Actnic Sunset"));
         s3->addVar(MW_ACTION,setActnicLightsOff);
         
       s2=menu.addMenu(MW_SUBMENU,s1,F("Set Moonlights"));
@@ -75,11 +75,11 @@ void setActnicLightsOff(){
 }
 
 void setMoonlightsOn(){
-    Serial.println("Set Moonlights Off");
+    Serial.println("Set Moonlights On");
 }
 
-void setMoonlightsOn(){
-    Serial.println("Set Moonlights On");
+void setMoonlightsOff(){
+    Serial.println("Set Moonlights Off");
 }
 
 void setWhiteLightsOn(){
