@@ -125,6 +125,8 @@ void setup() {
     s1=menu.addMenu(MW_SUBMENU,r,F("Settings"));
       s2=menu.addMenu(MW_VAR,s1,F("Set RTC"));
       s2=menu.addMenu(MW_VAR,s1,F("Lighting"));
+      s2=menu.addMenu(MW_VAR,s1,F("Brightness %"));
+      s2=menu.addMenu(MW_VAR,s1,F("Actnic Lighting"));
       s2=menu.addMenu(MW_VAR,s1,F("Moon Lights"));
       
     s1=menu.addMenu(MW_VAR,r,F("W/Wavemaker"));
