@@ -1,6 +1,6 @@
 Software
 
-Menu (Setup Preferences(RTC))
+Finish Alarm (Floats enable this)
+Menu (Finish Water change)
 AmPm()
-Convert doubles(sensor data) to chars(menu input)
 Convert RTC to chars (menu input)

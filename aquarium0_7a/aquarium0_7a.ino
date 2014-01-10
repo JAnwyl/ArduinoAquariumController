@@ -136,12 +136,12 @@ void setup() {
       s1->addVar(MW_ACTION,displayPumpsOn);
       
     s1=menu.addMenu(MW_VAR,r,F("Waterchange"));
-      s1->addVar(MW_ACTION,displayPumpsOff);
+      s1->addVar(MW_ACTION,displayPumpsOff);//Need to add Sump off (low water will eliminate water to overflow)
       
     s1=menu.addMenu(MW_VAR,r,F("Sump Maintenance"));
       s1->addVar(MW_ACTION,sumpOff);
       
-    s1=menu.addMenu(MW_VAR,r,F("Display Tank Maintenance"));
+    s1=menu.addMenu(MW_VAR,r,F("DT Maintenance"));
       s1->addVar(MW_ACTION,displayPumpsOff);
       
   menu.navButtons(UP_BUTTON_PIN,DOWN_BUTTON_PIN,ESCAPE_BUTTON_PIN,CONFIRM_BUTTON_PIN);
@@ -176,7 +176,7 @@ void usrScreen(){
   static  char buf[7];
   //1st LCD Line
   strcpy(menu.sbuf,"Clock: ");
-    //strcat(menu.sbuf,rtc.getTimeStr[FORMAT_SHORT]);
+    //strcat(menu.sbuf,getRTC);
   //2rd LCD Line
   strcat(menu.sbuf,"Air Temp: ");
     strcat(menu.sbuf,dtostrf(ambientTempF, 5, 2, buf));
@@ -314,6 +314,7 @@ void playTone(long duration, int freq) {
   }
 }
 
+/*
 void getRTC(){
   //Convert char to double
   //currentTime = rtc.getTimeStr(2);
@@ -330,3 +331,4 @@ void getAmPm(){
     AmPm = "Am";
   }
 }
+*/
