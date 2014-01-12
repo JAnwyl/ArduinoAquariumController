@@ -136,7 +136,7 @@ void setup() {
       s1->addVar(MW_ACTION,displayPumpsOn);
       
     s1=menu.addMenu(MW_VAR,r,F("Waterchange"));
-      s1->addVar(MW_ACTION,displayPumpsOff);//Need to add Sump off (low water will eliminate water to overflow)
+      s1->addVar(MW_ACTION,waterChange);
       
     s1=menu.addMenu(MW_VAR,r,F("Sump Maintenance"));
       s1->addVar(MW_ACTION,sumpOff);
@@ -169,6 +169,7 @@ void loop() {
 /////////////////////////////////////Methods////////////////////////////////////////
 /////////////////////////////////////#METHODS///////////////////////////////////////
 void alarm(){
+  displayPumpsOff;
   
 }
 
@@ -200,6 +201,11 @@ void ato(){
   }else{
     digitalWrite(atoAirPump, LOW);
   }
+}
+
+void waterChange(){
+  displayPumpsOff;
+  returnPumpOff;
 }
 
 void waves(){

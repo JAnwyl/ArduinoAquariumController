@@ -1,6 +1,5 @@
 Software
 
 Finish Alarm (Floats enable this)
-Menu (Finish Water change)
 AmPm()
 Convert RTC to chars (menu input)
